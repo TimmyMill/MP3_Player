@@ -20,8 +20,8 @@ public class MP3_GUI extends JFrame {
         setPreferredSize(new Dimension(500, 500));
         setResizable(true);
         setFocusable(true);
+        menu = new Menu();
         pack();
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        menu = new Menu();
     }
 }

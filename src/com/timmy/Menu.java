@@ -71,5 +71,6 @@ public class Menu extends JFrame { //implements ActionListener, KeyListener {
 
         setJMenuBar(menuBar);
         setVisible(true);
+        pack();
     }
 }
