@@ -6,19 +6,17 @@ import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 //import java.awt.event.KeyListener;
 
-public class Menu extends JFrame { //implements ActionListener, KeyListener {
+public class Menu extends JMenuBar { //implements ActionListener, KeyListener {
 
-    protected JMenuBar menuBar;
     protected JMenu fileMenu, controlsMenu, helpMenu;
     protected JMenuItem fOpen, fAdd, fClose;
     protected JMenuItem cPlay, cPrevious, cNext;
     protected JMenuItem hAbout;
 
     public Menu() {
-        super();
 
         /* Create the menu bar that will hold each dropdown menu */
-        menuBar = new JMenuBar();
+//        menuBar = new JMenuBar();
 
         /* Create each menu that will be in the menu bar:
         */
@@ -26,17 +24,17 @@ public class Menu extends JFrame { //implements ActionListener, KeyListener {
         //File Menu
         fileMenu = new JMenu("File");
         fileMenu.setMnemonic('f');
-        menuBar.add(fileMenu);
+        this.add(fileMenu);
 
         //Controls Menu
         controlsMenu = new JMenu("Controls");
         controlsMenu.setMnemonic('c');
-        menuBar.add(controlsMenu);
+        this.add(controlsMenu);
 
         //Help Menu
         helpMenu = new JMenu("Help");
         helpMenu.setMnemonic('h');
-        menuBar.add(helpMenu);
+        this.add(helpMenu);
 
         /* Create menu items that each menu will hold */
 
@@ -83,9 +81,5 @@ public class Menu extends JFrame { //implements ActionListener, KeyListener {
         hAbout = new JMenuItem("About");
 
         helpMenu.add(hAbout);
-
-        setJMenuBar(menuBar);
-        setVisible(true);
-        pack();
     }
 }
