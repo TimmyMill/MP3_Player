@@ -16,11 +16,11 @@ public class MP3_GUI extends JFrame {
         super("MP3");
 
         //JFrame Settings
+        menu = new Menu();
         setContentPane(playerPanel);
         setPreferredSize(new Dimension(500, 500));
         setResizable(true);
         setFocusable(true);
-        menu = new Menu();
         pack();
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
     }
