@@ -2,8 +2,6 @@ package com.timmy;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.InputEvent;
-import java.awt.event.KeyEvent;
 
 public class MP3_GUI extends JFrame {
     private JPanel playerPanel;
@@ -16,8 +14,8 @@ public class MP3_GUI extends JFrame {
         super("MP3");
 
         //JFrame Settings
-        menu = new Menu();
-        setJMenuBar(menu);
+        menu = new Menu(); //create the menu built in the menu class so we can add it to the JFrame
+        setJMenuBar(menu); //set our menu bar to the JFrame
         setContentPane(playerPanel);
         setPreferredSize(new Dimension(500, 500));
         pack();
