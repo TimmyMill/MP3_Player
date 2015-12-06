@@ -68,5 +68,8 @@ public class Menu extends JFrame { //implements ActionListener, KeyListener {
         aboutHelp = new JMenuItem("About");
 
         helpMenu.add(aboutHelp);
+
+        setJMenuBar(menuBar);
+        setVisible(true);
     }
 }
