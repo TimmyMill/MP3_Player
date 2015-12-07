@@ -15,11 +15,18 @@ public class Menu extends JMenuBar implements ActionListener, KeyListener {
     protected JMenuItem cPlay, cPrevious, cNext;
     protected JMenuItem hAbout;
     protected JFileChooser openFileChooser, addFileChooser;
-    protected File selectedOpenFile;
-    protected File selectedAddFile;
+
+    public static File getSelectedOpenFile() {
+        return selectedOpenFile;
+    }
+    public static File getSelectedAddFile() {
+        return selectedAddFile;
+    }
+
+    private static File selectedOpenFile;
+    private static File selectedAddFile;
     protected boolean playing = false;
     protected boolean pause = false;
-    String file;
 
     public Menu() {
         /* Create each menu that will be in the menu bar:
@@ -122,7 +129,7 @@ public class Menu extends JMenuBar implements ActionListener, KeyListener {
                 //If a file is selected, create a reference to it
                 if (openFileChooser.getSelectedFile() != null) { //prevents null pointer exception if a file isn't selected
                     selectedOpenFile = openFileChooser.getSelectedFile();
-                    file = openFileChooser.getSelectedFile().getAbsolutePath();
+//                    file = openFileChooser.getSelectedFile().getAbsolutePath();
                     System.out.println("Selection: " + selectedOpenFile.getAbsolutePath());
                 }
                 break;

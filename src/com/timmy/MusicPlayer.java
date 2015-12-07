@@ -21,6 +21,7 @@ public class MusicPlayer extends JFrame {
     private JButton nextButton;
     private JButton previousButton;
     private JLabel currentlyPlayingLabel;
+    private JPanel eastPanel;
     private Menu menu;
     private boolean playing = false;
 
