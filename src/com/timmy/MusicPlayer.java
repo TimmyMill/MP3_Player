@@ -7,6 +7,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 
 public class MusicPlayer extends JFrame {
     private JPanel playerPanel;
@@ -18,15 +20,18 @@ public class MusicPlayer extends JFrame {
     private JPanel centerPanel;
     private JButton nextButton;
     private JButton previousButton;
+    private JLabel currentlyPlayingLabel;
     private Menu menu;
+    private boolean playing = false;
 
     public MusicPlayer() {
-        super("MP3");
+//        super("MP3");
 
         //JFrame Settings
         menu = new Menu(); //create the menu built in the menu class so we can add it to the JFrame
         setJMenuBar(menu); //set our menu bar to the JFrame
         setContentPane(playerPanel);
+        setTitle("MP3");
         setPreferredSize(new Dimension(500, 500));
         pack();
         setResizable(true);
@@ -38,10 +43,31 @@ public class MusicPlayer extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 new javafx.embed.swing.JFXPanel();
-                String file = "file:///home/timmy/Music/LastWinter-ChasingLights.mp3";
+//                String file = "file:///home/timmy/Music/LastWinter-ChasingLights.mp3";
+                String file = ("file://" + menu.file);
+                System.out.println(file);
                 Media song = new Media(file);
                 MediaPlayer player = new MediaPlayer(song);
-                player.play();
+                if (! playing) {
+                    player.play();
+                    playing = true;
+                }
+                else {
+                    player.pause();
+                    playing = false;
+                }
+//                if (menu.playing) {
+//                    player.play();
+//                }
+//                if (! menu.playing) {
+//                    player.pause();
+//                }
+            }
+        });
+        playButton.addItemListener(new ItemListener() {
+            @Override
+            public void itemStateChanged(ItemEvent e) {
+
             }
         });
     }

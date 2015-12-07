@@ -17,6 +17,8 @@ public class Menu extends JMenuBar implements ActionListener, KeyListener {
     protected JFileChooser openFileChooser, addFileChooser;
     protected File selectedOpenFile;
     protected File selectedAddFile;
+    protected boolean playing = false;
+    protected boolean pause = false;
     String file;
 
     public Menu() {
@@ -86,15 +88,18 @@ public class Menu extends JMenuBar implements ActionListener, KeyListener {
 
         //play
         cPlay = new JMenuItem("Play");
+        cPlay.setActionCommand(InputEvent.getModifiersExText(KeyEvent.VK_SPACE));
+//        cPlay.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_SPACE, InputEvent.KEY_EVENT_MASK));
+        cPlay.addActionListener(this);
+        cPlay.setActionCommand("Play");
+        controlsMenu.add(cPlay);
 
         //previous
         cPrevious = new JMenuItem("Previous Song");
+        controlsMenu.add(cPrevious);
 
         //next
         cNext = new JMenuItem("Next Song");
-
-        controlsMenu.add(cPlay);
-        controlsMenu.add(cPrevious);
         controlsMenu.add(cNext);
 
         /* Help items:
@@ -131,6 +136,21 @@ public class Menu extends JMenuBar implements ActionListener, KeyListener {
                 }
                 break;
             }
+//            case "Play": {
+//                if (cPlay.isEnabled()) {
+//                    System.out.println("Play");
+//                    cPlay.setEnabled(true);
+//                    playing = true;
+//                    pause = false;
+//                }
+//                if (! cPlay.isEnabled()) {
+//                    System.out.println("Pause");
+//                    cPlay.setEnabled(false);
+//                    playing = false;
+//                    pause = true;
+//                }
+//                break;
+//            }
             case "Close": {
                 System.out.println("Close");
                 System.exit(0);
