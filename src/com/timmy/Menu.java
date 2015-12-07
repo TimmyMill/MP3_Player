@@ -6,6 +6,7 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.KeyStroke;
 import java.awt.event.*;
+import java.io.File;
 
 public class Menu extends JMenuBar implements ActionListener, KeyListener {
 
@@ -13,13 +14,12 @@ public class Menu extends JMenuBar implements ActionListener, KeyListener {
     protected JMenuItem fOpen, fAdd, fClose;
     protected JMenuItem cPlay, cPrevious, cNext;
     protected JMenuItem hAbout;
-    protected JFileChooser fc;
+    protected JFileChooser openFileChooser, addFileChooser;
+    protected File selectedOpenFile;
+    protected File selectedAddFile;
+    String file;
 
     public Menu() {
-
-        /* Create the menu bar that will hold each dropdown menu */
-//        menuBar = new JMenuBar();
-
         /* Create each menu that will be in the menu bar:
         */
 
@@ -54,15 +54,24 @@ public class Menu extends JMenuBar implements ActionListener, KeyListener {
         fOpen.setActionCommand("Open");
         fileMenu.add(fOpen);
 
-        fc = new JFileChooser();
-        fc.setCurrentDirectory(new java.io.File(System.getProperty("user.home")));
-        fc.setDialogTitle("Open File");
-        fc.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
+        openFileChooser = new JFileChooser();
+        openFileChooser.setCurrentDirectory(new java.io.File(System.getProperty("user.home")));
+        openFileChooser.setDialogTitle("Open File");
+        openFileChooser.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
 
 
         //add
         fAdd = new JMenuItem("Add Music");
+        fAdd.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_O, (InputEvent.CTRL_MASK + InputEvent.SHIFT_MASK) ));
+        fAdd.addActionListener(this);
+        fAdd.setActionCommand("Add");
         fileMenu.add(fAdd);
+        fileMenu.addSeparator();
+
+        addFileChooser = new JFileChooser();
+        addFileChooser.setCurrentDirectory(new java.io.File(System.getProperty("user.home")));
+        addFileChooser.setDialogTitle("Add Music");
+        addFileChooser.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
 
         //close
         fClose = new JMenuItem("Close Player");
@@ -71,7 +80,6 @@ public class Menu extends JMenuBar implements ActionListener, KeyListener {
         fClose.addActionListener(this);
         fClose.setActionCommand("Close");
         fileMenu.add(fClose);
-
 
         /* Controls items:
         */
@@ -104,12 +112,29 @@ public class Menu extends JMenuBar implements ActionListener, KeyListener {
         switch(actionCommand) {
             case "Open": {
                 System.out.println("Open");
-                fc.showOpenDialog(fOpen);
+                openFileChooser.showOpenDialog(fOpen);
+
+                //If a file is selected, create a reference to it
+                if (openFileChooser.getSelectedFile() != null) { //prevents null pointer exception if a file isn't selected
+                    selectedOpenFile = openFileChooser.getSelectedFile();
+                    file = openFileChooser.getSelectedFile().getAbsolutePath();
+                    System.out.println("Selection: " + selectedOpenFile.getAbsolutePath());
+                }
+                break;
+            }
+            case "Add": {
+                System.out.println("Add");
+                addFileChooser.showOpenDialog(fAdd);
+                if (addFileChooser.getSelectedFile() != null) {
+                    selectedAddFile = addFileChooser.getSelectedFile();
+                    System.out.println("Selection: " + selectedAddFile.getAbsolutePath());
+                }
                 break;
             }
             case "Close": {
                 System.out.println("Close");
                 System.exit(0);
+
                 break;
             }
             default: {
