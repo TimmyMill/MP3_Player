@@ -23,12 +23,13 @@ public class MusicPlayer extends JFrame {
     private JButton previousButton;
     private JLabel currentlyPlayingLabel;
     private JPanel eastPanel;
-    protected Menu menu; //= new Menu();
     private boolean playing = false;
-    private PlaybackControls audioControls; // = new PlaybackControls(this);
+    protected Menu menu; //= new Menu();
+    protected PlaybackControls audioControls; // = new PlaybackControls(this);
 
-    public MusicPlayer(Menu menu) {
+    public MusicPlayer(Menu menu, PlaybackControls audioControls) {
         this.menu = menu;
+        this.audioControls = audioControls;
 //        super("MP3");
 
         //JFrame Settings
@@ -46,6 +47,7 @@ public class MusicPlayer extends JFrame {
         playButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+
 
 //                new javafx.embed.swing.JFXPanel();
 //                String file = ("file://" + );

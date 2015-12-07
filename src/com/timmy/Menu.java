@@ -1,5 +1,7 @@
 package com.timmy;
 
+import javafx.stage.FileChooser;
+
 import javax.swing.JFileChooser;
 import javax.swing.JMenuItem;
 import javax.swing.JMenu;
@@ -17,6 +19,7 @@ public class Menu extends JMenuBar implements ActionListener, KeyListener {
     protected JFileChooser openFileChooser, addFileChooser;
     private File selectedOpenFile;
     private File selectedAddFile;
+    private static File selectedFile;
     protected boolean playing = false;
     protected boolean pause = false;
 
@@ -108,6 +111,16 @@ public class Menu extends JMenuBar implements ActionListener, KeyListener {
         hAbout = new JMenuItem("About");
 
         helpMenu.add(hAbout);
+    }
+
+    public static String selectSong(JMenuItem menuItem) {
+        JFileChooser fc = new JFileChooser();
+        fc.setFileSelectionMode(JFileChooser.FILES_ONLY);
+        fc.setCurrentDirectory(new File(System.getProperty("user.home")));
+        fc.showOpenDialog(menuItem);
+        selectedFile = fc.getSelectedFile();
+        System.out.println("Selection: " + selectedFile.getAbsolutePath());
+        return selectedFile.getAbsolutePath();
     }
 
     public File getSelectedOpenFile() {return this.selectedOpenFile;}
