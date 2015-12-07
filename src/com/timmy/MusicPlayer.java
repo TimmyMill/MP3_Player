@@ -45,7 +45,8 @@ public class MusicPlayer extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 new javafx.embed.swing.JFXPanel();
 //                String file = "file:///home/timmy/Music/LastWinter-ChasingLights.mp3";
-                String file = ("file://" + menu.file);
+//                String file = ("file://" + menu.file);
+                String file = ("file://" + Menu.getSelectedOpenFile());
                 System.out.println(file);
                 Media song = new Media(file);
                 MediaPlayer player = new MediaPlayer(song);
