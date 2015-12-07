@@ -15,16 +15,8 @@ public class Menu extends JMenuBar implements ActionListener, KeyListener {
     protected JMenuItem cPlay, cPrevious, cNext;
     protected JMenuItem hAbout;
     protected JFileChooser openFileChooser, addFileChooser;
-
-    public static File getSelectedOpenFile() {
-        return selectedOpenFile;
-    }
-    public static File getSelectedAddFile() {
-        return selectedAddFile;
-    }
-
-    private static File selectedOpenFile;
-    private static File selectedAddFile;
+    private File selectedOpenFile;
+    private File selectedAddFile;
     protected boolean playing = false;
     protected boolean pause = false;
 
@@ -117,6 +109,16 @@ public class Menu extends JMenuBar implements ActionListener, KeyListener {
 
         helpMenu.add(hAbout);
     }
+
+    public File getSelectedOpenFile() {return this.selectedOpenFile;}
+
+    public File getSelectedAddFile() {return selectedAddFile;}
+//    public static File getSelectedOpenFile() {
+//        return selectedOpenFile;
+//    }
+//    public static File getSelectedAddFile() {
+//        return selectedAddFile;
+//    }
 
     @Override
     public void actionPerformed(ActionEvent e) {

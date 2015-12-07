@@ -11,6 +11,7 @@ import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 
 public class MusicPlayer extends JFrame {
+
     private JPanel playerPanel;
     private JTable table1;
     private JButton playButton;
@@ -22,14 +23,16 @@ public class MusicPlayer extends JFrame {
     private JButton previousButton;
     private JLabel currentlyPlayingLabel;
     private JPanel eastPanel;
-    private Menu menu;
+    protected Menu menu; //= new Menu();
     private boolean playing = false;
+    private PlaybackControls audioControls; // = new PlaybackControls(this);
 
-    public MusicPlayer() {
+    public MusicPlayer(Menu menu) {
+        this.menu = menu;
 //        super("MP3");
 
         //JFrame Settings
-        menu = new Menu(); //create the menu built in the menu class so we can add it to the JFrame
+//        menu = new Menu(); //create the menu built in the menu class so we can add it to the JFrame
         setJMenuBar(menu); //set our menu bar to the JFrame
         setContentPane(playerPanel);
         setTitle("MP3");
@@ -43,21 +46,21 @@ public class MusicPlayer extends JFrame {
         playButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new javafx.embed.swing.JFXPanel();
-//                String file = "file:///home/timmy/Music/LastWinter-ChasingLights.mp3";
-//                String file = ("file://" + menu.file);
-                String file = ("file://" + Menu.getSelectedOpenFile());
-                System.out.println(file);
-                Media song = new Media(file);
-                MediaPlayer player = new MediaPlayer(song);
-                if (! playing) {
-                    player.play();
-                    playing = true;
-                }
-                else {
-                    player.pause();
-                    playing = false;
-                }
+
+//                new javafx.embed.swing.JFXPanel();
+//                String file = ("file://" + );
+////                String file = ("file://" + Menu.getSelectedOpenFile());
+//                System.out.println(file);
+//                Media song = new Media(file);
+//                MediaPlayer player = new MediaPlayer(song);
+//                if (! playing) {
+//                    player.play();
+//                    playing = true;
+//                }
+//                else {
+//                    player.pause();
+//                    playing = false;
+//                }
 //                if (menu.playing) {
 //                    player.play();
 //                }
@@ -66,6 +69,7 @@ public class MusicPlayer extends JFrame {
 //                }
             }
         });
+
         playButton.addItemListener(new ItemListener() {
             @Override
             public void itemStateChanged(ItemEvent e) {
