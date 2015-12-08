@@ -27,7 +27,7 @@ public class MusicPlayer extends JFrame {
     protected Menu menu; //= new Menu();
     protected PlaybackControls audioControls; // = new PlaybackControls(this);
 
-    public MusicPlayer(Menu menu, PlaybackControls audioControls) {
+    public MusicPlayer(Menu menu, final PlaybackControls audioControls) {
         this.menu = menu;
         this.audioControls = audioControls;
 //        super("MP3");
@@ -47,14 +47,7 @@ public class MusicPlayer extends JFrame {
         playButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
-
-//                new javafx.embed.swing.JFXPanel();
-//                String file = ("file://" + );
-////                String file = ("file://" + Menu.getSelectedOpenFile());
-//                System.out.println(file);
-//                Media song = new Media(file);
-//                MediaPlayer player = new MediaPlayer(song);
+                audioControls.play();
 //                if (! playing) {
 //                    player.play();
 //                    playing = true;

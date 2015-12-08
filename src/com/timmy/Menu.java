@@ -24,8 +24,10 @@ public class Menu extends JMenuBar implements ActionListener, KeyListener {
     private static boolean add = false;
     protected boolean playing = false;
     protected boolean pause = false;
+    private PlaybackControls audioControls;
 
-    public Menu() {
+    public Menu(PlaybackControls audioControls) {
+        this.audioControls = audioControls;
         /* Create each menu that will be in the menu bar:
         */
 
@@ -136,16 +138,12 @@ public class Menu extends JMenuBar implements ActionListener, KeyListener {
 
     }
 
-
-    public File getSelectedOpenFile() {return this.selectedOpenFile;}
-
-    public File getSelectedAddFile() {return selectedAddFile;}
-//    public static File getSelectedOpenFile() {
-//        return selectedOpenFile;
-//    }
-//    public static File getSelectedAddFile() {
-//        return selectedAddFile;
-//    }
+    public static File getSelectedFile() {
+        return selectedFile;
+    }
+    //    public File getSelectedOpenFile() {return this.selectedOpenFile;}
+//
+//    public File getSelectedAddFile() {return selectedAddFile;}
 
     @Override
     public void actionPerformed(ActionEvent e) {
@@ -175,7 +173,8 @@ public class Menu extends JMenuBar implements ActionListener, KeyListener {
 //                    System.out.println("Selection: " + selectedAddFile.getAbsolutePath());
 //                }
             }
-//            case "Play": {
+            case "Play": {
+                audioControls.play();
 //                if (cPlay.isEnabled()) {
 //                    System.out.println("Play");
 //                    cPlay.setEnabled(true);
@@ -188,8 +187,8 @@ public class Menu extends JMenuBar implements ActionListener, KeyListener {
 //                    playing = false;
 //                    pause = true;
 //                }
-//                break;
-//            }
+                break;
+            }
             case "Close": {
                 System.out.println("Close");
                 System.exit(0);

@@ -7,19 +7,18 @@ import java.io.File;
 
 public class PlaybackControls extends JFXPanel {
 
-    private MediaPlayer audioPlayer;
+    private static MediaPlayer audioPlayer;
 //    private MusicPlayer player;
 
-    public PlaybackControls(MediaPlayer player) {
-        this.audioPlayer = player;
+    public PlaybackControls() {
     }
 
-    public String loadSong() {
+    public void loadSong() {
 //        File file = player.menu.getSelectedOpenFile();
-        String fileStr = ("file://" + file.getAbsolutePath());
+//        String fileStr = ("file://" + file.getAbsolutePath());
+        String fileStr = ("file://" + Menu.getSelectedFile().getAbsolutePath());
         Media song = new Media(fileStr);
         audioPlayer = new MediaPlayer(song);
-        return fileStr;
     }
 
     public void play() {
