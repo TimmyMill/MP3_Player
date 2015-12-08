@@ -20,6 +20,8 @@ public class Menu extends JMenuBar implements ActionListener, KeyListener {
     private File selectedOpenFile;
     private File selectedAddFile;
     private static File selectedFile;
+    private static boolean open = false;
+    private static boolean add = false;
     protected boolean playing = false;
     protected boolean pause = false;
 
@@ -113,15 +115,27 @@ public class Menu extends JMenuBar implements ActionListener, KeyListener {
         helpMenu.add(hAbout);
     }
 
-    public static String selectSong(JMenuItem menuItem) {
+    public static void selectSong(JMenuItem menuItem) {
         JFileChooser fc = new JFileChooser();
+
+        if (open) {
+            fc.setDialogTitle("Open File");
+        }
+        if (add) {
+            fc.setDialogTitle("Add File");
+        }
+
         fc.setFileSelectionMode(JFileChooser.FILES_ONLY);
         fc.setCurrentDirectory(new File(System.getProperty("user.home")));
         fc.showOpenDialog(menuItem);
-        selectedFile = fc.getSelectedFile();
-        System.out.println("Selection: " + selectedFile.getAbsolutePath());
-        return selectedFile.getAbsolutePath();
+
+        if (fc.getSelectedFile() != null) {
+            selectedFile = fc.getSelectedFile();
+            System.out.println("Selection: " + selectedFile.getAbsolutePath());
+        }
+
     }
+
 
     public File getSelectedOpenFile() {return this.selectedOpenFile;}
 
@@ -139,24 +153,27 @@ public class Menu extends JMenuBar implements ActionListener, KeyListener {
         switch(actionCommand) {
             case "Open": {
                 System.out.println("Open");
-                openFileChooser.showOpenDialog(fOpen);
-
-                //If a file is selected, create a reference to it
-                if (openFileChooser.getSelectedFile() != null) { //prevents null pointer exception if a file isn't selected
-                    selectedOpenFile = openFileChooser.getSelectedFile();
-//                    file = openFileChooser.getSelectedFile().getAbsolutePath();
-                    System.out.println("Selection: " + selectedOpenFile.getAbsolutePath());
-                }
+                open = true;
+                selectSong(fOpen);
+                open = false;
                 break;
+//                //If a file is selected, create a reference to it
+//                if (openFileChooser.getSelectedFile() != null) { //prevents null pointer exception if a file isn't selected
+//                    selectedOpenFile = openFileChooser.getSelectedFile();
+////                    file = openFileChooser.getSelectedFile().getAbsolutePath();
+//                    System.out.println("Selection: " + selectedOpenFile.getAbsolutePath());
+//                }
             }
             case "Add": {
                 System.out.println("Add");
-                addFileChooser.showOpenDialog(fAdd);
-                if (addFileChooser.getSelectedFile() != null) {
-                    selectedAddFile = addFileChooser.getSelectedFile();
-                    System.out.println("Selection: " + selectedAddFile.getAbsolutePath());
-                }
+                add = true;
+                selectSong(fAdd);
+                add = false;
                 break;
+//                if (addFileChooser.getSelectedFile() != null) {
+//                    selectedAddFile = addFileChooser.getSelectedFile();
+//                    System.out.println("Selection: " + selectedAddFile.getAbsolutePath());
+//                }
             }
 //            case "Play": {
 //                if (cPlay.isEnabled()) {
