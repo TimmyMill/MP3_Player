@@ -1,8 +1,5 @@
 package com.timmy;
 
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -24,13 +21,12 @@ public class MusicPlayer extends JFrame {
     private JLabel currentlyPlayingLabel;
     private JPanel eastPanel;
     private boolean playing = false;
-    protected Menu menu; //= new Menu();
-    protected PlaybackControls audioControls; // = new PlaybackControls(this);
+    protected Menu menu;
+    protected PlaybackControls audioControls;
 
-    public MusicPlayer(Menu menu, final PlaybackControls audioControls) {
+    public MusicPlayer(final Menu menu, final PlaybackControls audioControls) {
         this.menu = menu;
         this.audioControls = audioControls;
-//        super("MP3");
 
         //JFrame Settings
 //        menu = new Menu(); //create the menu built in the menu class so we can add it to the JFrame
@@ -48,6 +44,8 @@ public class MusicPlayer extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 audioControls.play();
+//                menu.playing = true;
+
 //                if (! playing) {
 //                    player.play();
 //                    playing = true;

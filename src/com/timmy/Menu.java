@@ -1,7 +1,5 @@
 package com.timmy;
 
-import javafx.stage.FileChooser;
-
 import javax.swing.JFileChooser;
 import javax.swing.JMenuItem;
 import javax.swing.JMenu;
