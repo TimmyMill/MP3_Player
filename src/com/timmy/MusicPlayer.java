@@ -94,8 +94,8 @@ public class MusicPlayer extends JFrame {
             } catch (BasicPlayerException bpe) {
                 bpe.printStackTrace();
             }
-
         }
+
     }
 
 }
