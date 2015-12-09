@@ -41,42 +41,23 @@ public class MusicPlayer extends JFrame {
         setVisible(true);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
+        //Action Listener for play button
         playButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                try {
-                    //If song isn't playing AND isn't paused, start playback
-                    if ( !audioControls.isPlaying() && !audioControls.isPaused() ) {
-                        audioControls.play();
-                        playButton.setText("Pause"); //song is playing so change the button to pause
-                        menu.cPlay.setText("Pause");
-                    }
-                    //If song is playing AND isn't paused, pause playback
-                    else if (audioControls.isPlaying() && !audioControls.isPaused() ) {
-                        audioControls.pause();
-                        playButton.setText("Play"); //song is paused, so change the button to play
-                        menu.cPlay.setText("Play");
-                    }
-                    //If song is paused, resume playback
-                    else if (audioControls.isPaused()) {
-                        audioControls.resume();
-                        playButton.setText("Pause"); //song has resumed, so change the button back to pause
-                        menu.cPlay.setText("Pause");
-                    }
-                } catch (BasicPlayerException bpe) {
-                    bpe.printStackTrace();
-                }
-
+                playControls();
             }
         });
 
-//        menu.cPlay.addActionListener(new ActionListener() {
-//            @Override
-//            public void actionPerformed(ActionEvent e) {
-//
-//            }
-//        });
+        //Action Listener for play menu item
+        menu.cPlay.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                playControls();
+            }
+        });
 
+        //Action Listener for stop button
         stopButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -85,6 +66,32 @@ public class MusicPlayer extends JFrame {
                 menu.cPlay.setText("Play");
             }
         });
+    }
+
+    //Method to control how the play button and play menu item function
+    public void playControls() {
+        try {
+            //If song isn't playing AND isn't paused, start playback
+            if ( !audioControls.isPlaying() && !audioControls.isPaused() ) {
+                audioControls.play();
+                playButton.setText("Pause"); //song is playing so change the button to pause
+                menu.cPlay.setText("Pause");
+            }
+            //If song is playing AND isn't paused, pause playback
+            else if (audioControls.isPlaying() && !audioControls.isPaused() ) {
+                audioControls.pause();
+                playButton.setText("Play"); //song is paused, so change the button to play
+                menu.cPlay.setText("Play");
+            }
+            //If song is paused, resume playback
+            else if (audioControls.isPaused()) {
+                audioControls.resume();
+                playButton.setText("Pause"); //song has resumed, so change the button back to pause
+                menu.cPlay.setText("Pause");
+            }
+        } catch (BasicPlayerException bpe) {
+            bpe.printStackTrace();
+        }
     }
 
 }

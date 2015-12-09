@@ -48,30 +48,6 @@ public class PlaybackControls extends BasicPlayer {
         System.out.println("Resume");
     }
 
-//    //playback
-//    public void playButtonControls() {
-//        try {
-//            //If song isn't playing AND isn't paused, start playback
-//            if ( isPlaying() && isPaused() ) {
-//                play();
-//                MusicPlayer.getPlayButton().setText("Pause"); //song is playing so change the button to pause
-//            }
-//            //If song is playing AND isn't paused, pause playback
-//            else if (isPlaying() && isPaused() ) {
-//                pause();
-//                MusicPlayer.getPlayButton().setText("Play"); //song is paused, so change the button to play
-//            }
-//            //If song is paused, resume playback
-//            else if (isPaused()) {
-//                resume();
-//                MusicPlayer.getPlayButton().setText("Pause"); //song has resumed, so change the button back to pause
-//            }
-//        } catch (BasicPlayerException bpe) {
-//            bpe.printStackTrace();
-//        }
-//
-//    }
-
     /* Get & Set */
 
     public boolean isPlaying() {return isPlaying;}
