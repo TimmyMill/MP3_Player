@@ -1,5 +1,7 @@
 package com.timmy;
 
+import javazoom.jlgui.basicplayer.BasicPlayerException;
+
 import javax.swing.JFileChooser;
 import javax.swing.JMenuItem;
 import javax.swing.JMenu;
@@ -172,7 +174,11 @@ public class Menu extends JMenuBar implements ActionListener, KeyListener {
 //                }
             }
             case "Play": {
-                audioControls.play();
+                try {
+                    audioControls.play();
+                } catch (BasicPlayerException bpe) {
+                    bpe.printStackTrace();
+                }
 //                if (cPlay.isEnabled()) {
 //                    System.out.println("Play");
 //                    cPlay.setEnabled(true);

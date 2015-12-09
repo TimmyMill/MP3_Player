@@ -1,5 +1,7 @@
 package com.timmy;
 
+import javazoom.jlgui.basicplayer.BasicPlayerException;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -43,23 +45,23 @@ public class MusicPlayer extends JFrame {
         playButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                audioControls.play();
-//                menu.playing = true;
+                try {
+                    //If song isn't playing AND isn't paused, start playback
+                    if ( !audioControls.isPlaying() && !audioControls.isPaused() ) {
+                        audioControls.play();
+                    }
+                    //If song is playing AND isn't paused, pause playback
+                    else if (audioControls.isPlaying() && !audioControls.isPaused() ) {
+                        audioControls.pause();
+                    }
+                    //If song is paused, resume playback
+                    else if (audioControls.isPaused()) {
+                        audioControls.resume();
+                    }
+                } catch (BasicPlayerException bpe) {
+                    bpe.printStackTrace();
+                }
 
-//                if (! playing) {
-//                    player.play();
-//                    playing = true;
-//                }
-//                else {
-//                    player.pause();
-//                    playing = false;
-//                }
-//                if (menu.playing) {
-//                    player.play();
-//                }
-//                if (! menu.playing) {
-//                    player.pause();
-//                }
             }
         });
 
