@@ -20,6 +20,7 @@ public class MusicPlayer extends JFrame {
     private JButton previousButton;
     private JLabel currentlyPlayingLabel;
     private JPanel eastPanel;
+    private JButton stopButton;
     private boolean playing = false;
     protected Menu menu;
     protected PlaybackControls audioControls;
@@ -43,22 +44,24 @@ public class MusicPlayer extends JFrame {
         playButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-//                audioControls.playButtonControls();
                 try {
                     //If song isn't playing AND isn't paused, start playback
                     if ( !audioControls.isPlaying() && !audioControls.isPaused() ) {
                         audioControls.play();
                         playButton.setText("Pause"); //song is playing so change the button to pause
+                        menu.cPlay.setText("Pause");
                     }
                     //If song is playing AND isn't paused, pause playback
                     else if (audioControls.isPlaying() && !audioControls.isPaused() ) {
                         audioControls.pause();
                         playButton.setText("Play"); //song is paused, so change the button to play
+                        menu.cPlay.setText("Play");
                     }
                     //If song is paused, resume playback
                     else if (audioControls.isPaused()) {
                         audioControls.resume();
                         playButton.setText("Pause"); //song has resumed, so change the button back to pause
+                        menu.cPlay.setText("Pause");
                     }
                 } catch (BasicPlayerException bpe) {
                     bpe.printStackTrace();
@@ -66,9 +69,22 @@ public class MusicPlayer extends JFrame {
 
             }
         });
+
+//        menu.cPlay.addActionListener(new ActionListener() {
+//            @Override
+//            public void actionPerformed(ActionEvent e) {
+//
+//            }
+//        });
+
+        stopButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                audioControls.stop();
+                playButton.setText("Play");
+                menu.cPlay.setText("Play");
+            }
+        });
     }
 
-    public JButton getPlayButton() {
-        return playButton;
-    }
 }

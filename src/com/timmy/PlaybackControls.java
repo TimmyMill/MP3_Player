@@ -32,6 +32,8 @@ public class PlaybackControls extends BasicPlayer {
 
     public void stop() {
         stopPlayback();
+        isPlaying = false;
+        System.out.println("Stop");
     }
 
     public void pause() {
@@ -72,19 +74,9 @@ public class PlaybackControls extends BasicPlayer {
 
     /* Get & Set */
 
-    public boolean isPlaying() {
-        return isPlaying;
-    }
+    public boolean isPlaying() {return isPlaying;}
+    public void setPlaying(boolean playing) {isPlaying = playing;}
 
-    public void setPlaying(boolean playing) {
-        isPlaying = playing;
-    }
-
-    public boolean isPaused() {
-        return isPaused;
-    }
-
-    public void setPaused(boolean paused) {
-        isPaused = paused;
-    }
+    public boolean isPaused() {return isPaused;}
+    public void setPaused(boolean paused) {isPaused = paused;}
 }

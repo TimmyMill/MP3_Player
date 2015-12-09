@@ -148,12 +148,6 @@ public class Menu extends JMenuBar implements ActionListener, KeyListener {
 
             }
             case "Play": {
-                try {
-                    audioControls.play();
-                } catch (BasicPlayerException bpe) {
-                    bpe.printStackTrace();
-                }
-
                 break;
             }
             case "Close": {
