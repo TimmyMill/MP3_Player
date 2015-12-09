@@ -1,9 +1,7 @@
 package com.timmy;
 
-import javazoom.jlgui.basicplayer.BasicPlayer;
 import javazoom.jlgui.basicplayer.BasicPlayerException;
-//import javazoom.spi.mpeg.sampled.file.*;
-
+import javazoom.jlgui.basicplayer.BasicPlayer;
 
 public class PlaybackControls extends BasicPlayer {
 
@@ -16,8 +14,7 @@ public class PlaybackControls extends BasicPlayer {
     public void loadSong() {
         try {
             open(Menu.getSelectedFile().getFile());
-        }
-        catch (BasicPlayerException e) {
+        } catch (BasicPlayerException e) {
             e.printStackTrace();
         }
     }
@@ -28,8 +25,7 @@ public class PlaybackControls extends BasicPlayer {
             startPlayback();
             isPlaying = true;
             System.out.println("Play");
-        }
-        catch (BasicPlayerException e) {
+        } catch (BasicPlayerException e) {
             e.printStackTrace();
         }
     }
@@ -91,5 +87,4 @@ public class PlaybackControls extends BasicPlayer {
     public void setPaused(boolean paused) {
         isPaused = paused;
     }
-
 }
