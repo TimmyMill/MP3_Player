@@ -1,11 +1,6 @@
 package com.timmy;
 
 import java.io.File;
-import java.util.Map;
-
-import javazoom.spi.mpeg.sampled.file.*;
-
-import javax.sound.sampled.AudioFormat;
 
 public class MusicFile {
 
@@ -19,12 +14,6 @@ public class MusicFile {
         this.path = path;
         this.name = fileName;
     }
-
-//    public MusicFile(String artist, String album, String title) {
-//        this.artist = artist;
-//        this.album = album;
-//        this.title = title;
-//    }
 
     public String getArtist() {
         return artist;
@@ -65,4 +54,5 @@ public class MusicFile {
     public void setName(File name) {
         this.name = name;
     }
+
 }

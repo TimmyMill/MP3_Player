@@ -16,14 +16,9 @@ public class Menu extends JMenuBar implements ActionListener, KeyListener {
     protected JMenuItem fOpen, fAdd, fClose;
     protected JMenuItem cPlay, cPrevious, cNext;
     protected JMenuItem hAbout;
-    protected JFileChooser openFileChooser, addFileChooser;
-    private File selectedOpenFile;
-    private File selectedAddFile;
     private static File selectedFile;
     private static boolean open = false;
     private static boolean add = false;
-    protected boolean playing = false;
-    protected boolean pause = false;
     private PlaybackControls audioControls;
 
     public Menu(PlaybackControls audioControls) {
@@ -62,12 +57,6 @@ public class Menu extends JMenuBar implements ActionListener, KeyListener {
         fOpen.setActionCommand("Open");
         fileMenu.add(fOpen);
 
-        openFileChooser = new JFileChooser();
-        openFileChooser.setCurrentDirectory(new java.io.File(System.getProperty("user.home")));
-        openFileChooser.setDialogTitle("Open File");
-        openFileChooser.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
-
-
         //add
         fAdd = new JMenuItem("Add Music");
         fAdd.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_O, (InputEvent.CTRL_MASK + InputEvent.SHIFT_MASK) ));
@@ -75,11 +64,6 @@ public class Menu extends JMenuBar implements ActionListener, KeyListener {
         fAdd.setActionCommand("Add");
         fileMenu.add(fAdd);
         fileMenu.addSeparator();
-
-        addFileChooser = new JFileChooser();
-        addFileChooser.setCurrentDirectory(new java.io.File(System.getProperty("user.home")));
-        addFileChooser.setDialogTitle("Add Music");
-        addFileChooser.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
 
         //close
         fClose = new JMenuItem("Close Player");
@@ -141,9 +125,6 @@ public class Menu extends JMenuBar implements ActionListener, KeyListener {
     public static File getSelectedFile() {
         return selectedFile;
     }
-    //    public File getSelectedOpenFile() {return this.selectedOpenFile;}
-//
-//    public File getSelectedAddFile() {return selectedAddFile;}
 
     @Override
     public void actionPerformed(ActionEvent e) {
@@ -155,12 +136,7 @@ public class Menu extends JMenuBar implements ActionListener, KeyListener {
                 selectSong(fOpen);
                 open = false;
                 break;
-//                //If a file is selected, create a reference to it
-//                if (openFileChooser.getSelectedFile() != null) { //prevents null pointer exception if a file isn't selected
-//                    selectedOpenFile = openFileChooser.getSelectedFile();
-////                    file = openFileChooser.getSelectedFile().getAbsolutePath();
-//                    System.out.println("Selection: " + selectedOpenFile.getAbsolutePath());
-//                }
+
             }
             case "Add": {
                 System.out.println("Add");
@@ -168,10 +144,7 @@ public class Menu extends JMenuBar implements ActionListener, KeyListener {
                 selectSong(fAdd);
                 add = false;
                 break;
-//                if (addFileChooser.getSelectedFile() != null) {
-//                    selectedAddFile = addFileChooser.getSelectedFile();
-//                    System.out.println("Selection: " + selectedAddFile.getAbsolutePath());
-//                }
+
             }
             case "Play": {
                 try {
@@ -179,18 +152,7 @@ public class Menu extends JMenuBar implements ActionListener, KeyListener {
                 } catch (BasicPlayerException bpe) {
                     bpe.printStackTrace();
                 }
-//                if (cPlay.isEnabled()) {
-//                    System.out.println("Play");
-//                    cPlay.setEnabled(true);
-//                    playing = true;
-//                    pause = false;
-//                }
-//                if (! cPlay.isEnabled()) {
-//                    System.out.println("Pause");
-//                    cPlay.setEnabled(false);
-//                    playing = false;
-//                    pause = true;
-//                }
+
                 break;
             }
             case "Close": {
