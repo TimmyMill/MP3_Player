@@ -32,7 +32,7 @@ public class MusicPlayer extends JFrame {
 //        menu = new Menu(); //create the menu built in the menu class so we can add it to the JFrame
         setJMenuBar(menu); //set our menu bar to the JFrame
         setContentPane(playerPanel);
-        setTitle("MP3");
+        setTitle("MusicFile");
         setPreferredSize(new Dimension(500, 500));
         pack();
         setResizable(true);
