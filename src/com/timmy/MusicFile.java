@@ -8,11 +8,11 @@ public class MusicFile {
     private String album;
     private String title;
     private String path;
-    private File name;
+    private File file;
 
     public MusicFile(String path, File fileName) {
         this.path = path;
-        this.name = fileName;
+        this.file = fileName;
     }
 
     public String getArtist() {
@@ -47,12 +47,23 @@ public class MusicFile {
         this.path = path;
     }
 
-    public File getName() {
-        return name;
+    public File getFile() {
+        return file;
     }
 
-    public void setName(File name) {
-        this.name = name;
+    public void setFile(File file) {
+        this.file = file;
     }
 
+    @Override
+    public String toString() {
+        return "Path: " + path + " " + "File: " + file;
+        /*"MusicFile{" +
+        "artist='" + artist + '\'' +
+        ", album='" + album + '\'' +
+        ", title='" + title + '\'' +
+        ", path='" + path + '\'' +
+        ", file=" + file +
+        '}'; */
+    }
 }

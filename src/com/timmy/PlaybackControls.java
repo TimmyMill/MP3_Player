@@ -19,7 +19,7 @@ public class PlaybackControls extends BasicPlayer {
 //        String fileStr = ("file://" + Menu.getSelectedFile().getAbsolutePath());
         try {
 //            open(new URL("file://" + Menu.getSelectedFile().getPath()));
-            open(Menu.getSelectedFile());
+            open(Menu.getSelectedFile().getFile());
 //            open(Menu.getSelectedFile());
         }
         catch (BasicPlayerException e) {

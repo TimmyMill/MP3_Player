@@ -1,7 +1,6 @@
 package com.timmy;
 
 import javazoom.jlgui.basicplayer.BasicPlayerException;
-
 import javax.swing.JFileChooser;
 import javax.swing.JMenuItem;
 import javax.swing.JMenu;
@@ -16,10 +15,10 @@ public class Menu extends JMenuBar implements ActionListener, KeyListener {
     protected JMenuItem fOpen, fAdd, fClose;
     protected JMenuItem cPlay, cPrevious, cNext;
     protected JMenuItem hAbout;
-    private static File selectedFile;
+    private PlaybackControls audioControls;
+    private static MusicFile selectedFile;
     private static boolean open = false;
     private static boolean add = false;
-    private PlaybackControls audioControls;
 
     public Menu(PlaybackControls audioControls) {
         this.audioControls = audioControls;
@@ -116,13 +115,15 @@ public class Menu extends JMenuBar implements ActionListener, KeyListener {
         fc.showOpenDialog(menuItem);
 
         if (fc.getSelectedFile() != null) {
-            selectedFile = fc.getSelectedFile();
-            System.out.println("Selection: " + selectedFile.getAbsolutePath());
+            File f = fc.getSelectedFile();
+            String path = f.getPath();
+            selectedFile = new MusicFile(path, f);
+            System.out.println("Selection: " + selectedFile);
         }
 
     }
 
-    public static File getSelectedFile() {
+    public static MusicFile getSelectedFile() {
         return selectedFile;
     }
 
