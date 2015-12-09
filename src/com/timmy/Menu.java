@@ -11,10 +11,10 @@ import java.io.File;
 
 public class Menu extends JMenuBar implements ActionListener, KeyListener {
 
-    protected JMenu fileMenu, controlsMenu, helpMenu;
-    protected JMenuItem fOpen, fAdd, fClose;
-    protected JMenuItem cPlay, cPrevious, cNext;
-    protected JMenuItem hAbout;
+    protected JMenu fileMenu, controlsMenu, helpMenu; //create menus for file, controls, and help
+    protected JMenuItem fOpen, fAdd, fClose;          //create menu items for the file menu
+    protected JMenuItem cPlay, cStop, cPrevious, cNext;      //create menu items for the controls menu
+    protected JMenuItem hAbout;                       //create menu items for the help menu
     private PlaybackControls audioControls;
     private static MusicFile selectedFile;
     private static boolean open = false;
@@ -22,6 +22,7 @@ public class Menu extends JMenuBar implements ActionListener, KeyListener {
 
     public Menu(PlaybackControls audioControls) {
         this.audioControls = audioControls;
+
         /* Create each menu that will be in the menu bar:
         */
 
@@ -79,9 +80,15 @@ public class Menu extends JMenuBar implements ActionListener, KeyListener {
         cPlay = new JMenuItem("Play");
         cPlay.setActionCommand(InputEvent.getModifiersExText(KeyEvent.VK_SPACE));
 //        cPlay.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_SPACE, InputEvent.KEY_EVENT_MASK));
-        cPlay.addActionListener(this);
+//        cPlay.addActionListener(this);
         cPlay.setActionCommand("Play");
         controlsMenu.add(cPlay);
+
+        //stop
+        cStop = new JMenuItem("Stop");
+//        cPlay.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_SPACE, InputEvent.CTRL_MASK));
+        cStop.addActionListener(this);
+        controlsMenu.add(cStop);
 
         //previous
         cPrevious = new JMenuItem("Previous Song");
@@ -99,6 +106,8 @@ public class Menu extends JMenuBar implements ActionListener, KeyListener {
 
         helpMenu.add(hAbout);
     }
+
+    //Method to open or add a file
 
     public static void selectSong(JMenuItem menuItem) {
         JFileChooser fc = new JFileChooser();

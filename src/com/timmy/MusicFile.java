@@ -1,8 +1,9 @@
 package com.timmy;
 
 import java.io.File;
+import java.io.Serializable;
 
-public class MusicFile {
+public class MusicFile implements Serializable {
 
     private String artist;
     private String album;

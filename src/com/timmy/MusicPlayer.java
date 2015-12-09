@@ -70,27 +70,31 @@ public class MusicPlayer extends JFrame {
 
     //Method to control how the play button and play menu item function
     public void playControls() {
-        try {
-            //If song isn't playing AND isn't paused, start playback
-            if ( !audioControls.isPlaying() && !audioControls.isPaused() ) {
-                audioControls.play();
-                playButton.setText("Pause"); //song is playing so change the button to pause
-                menu.cPlay.setText("Pause");
+        //If song has been selected, do this
+        if (Menu.getSelectedFile() != null) {
+            try {
+                //If song isn't playing AND isn't paused, start playback
+                if (!audioControls.isPlaying() && !audioControls.isPaused()) {
+                    audioControls.play();
+                    playButton.setText("Pause"); //song is playing so change the button to pause
+                    menu.cPlay.setText("Pause");
+                }
+                //If song is playing AND isn't paused, pause playback
+                else if (audioControls.isPlaying() && !audioControls.isPaused()) {
+                    audioControls.pause();
+                    playButton.setText("Play"); //song is paused, so change the button to play
+                    menu.cPlay.setText("Play");
+                }
+                //If song is paused, resume playback
+                else if (audioControls.isPaused()) {
+                    audioControls.resume();
+                    playButton.setText("Pause"); //song has resumed, so change the button back to pause
+                    menu.cPlay.setText("Pause");
+                }
+            } catch (BasicPlayerException bpe) {
+                bpe.printStackTrace();
             }
-            //If song is playing AND isn't paused, pause playback
-            else if (audioControls.isPlaying() && !audioControls.isPaused() ) {
-                audioControls.pause();
-                playButton.setText("Play"); //song is paused, so change the button to play
-                menu.cPlay.setText("Play");
-            }
-            //If song is paused, resume playback
-            else if (audioControls.isPaused()) {
-                audioControls.resume();
-                playButton.setText("Pause"); //song has resumed, so change the button back to pause
-                menu.cPlay.setText("Pause");
-            }
-        } catch (BasicPlayerException bpe) {
-            bpe.printStackTrace();
+
         }
     }
 
