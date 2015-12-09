@@ -43,6 +43,7 @@ public class MusicPlayer extends JFrame {
         playButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+//                audioControls.playButtonControls();
                 try {
                     //If song isn't playing AND isn't paused, start playback
                     if ( !audioControls.isPlaying() && !audioControls.isPaused() ) {
@@ -65,5 +66,9 @@ public class MusicPlayer extends JFrame {
 
             }
         });
+    }
+
+    public JButton getPlayButton() {
+        return playButton;
     }
 }
