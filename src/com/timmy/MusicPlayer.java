@@ -6,8 +6,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
 
 public class MusicPlayer extends JFrame {
 
@@ -49,25 +47,21 @@ public class MusicPlayer extends JFrame {
                     //If song isn't playing AND isn't paused, start playback
                     if ( !audioControls.isPlaying() && !audioControls.isPaused() ) {
                         audioControls.play();
+                        playButton.setText("Pause"); //song is playing so change the button to pause
                     }
                     //If song is playing AND isn't paused, pause playback
                     else if (audioControls.isPlaying() && !audioControls.isPaused() ) {
                         audioControls.pause();
+                        playButton.setText("Play"); //song is paused, so change the button to play
                     }
                     //If song is paused, resume playback
                     else if (audioControls.isPaused()) {
                         audioControls.resume();
+                        playButton.setText("Pause"); //song has resumed, so change the button back to pause
                     }
                 } catch (BasicPlayerException bpe) {
                     bpe.printStackTrace();
                 }
-
-            }
-        });
-
-        playButton.addItemListener(new ItemListener() {
-            @Override
-            public void itemStateChanged(ItemEvent e) {
 
             }
         });
