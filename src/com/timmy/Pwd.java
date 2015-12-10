@@ -11,6 +11,8 @@ public class Pwd extends JDialog {
     private JTextField userTextField;
     private JLabel userLabel;
     private JLabel passwordLabel;
+    private static String user;
+    private static String password = "";
 
     public Pwd() {
         setContentPane(contentPane);
@@ -25,10 +27,8 @@ public class Pwd extends JDialog {
         });
     }
 
-
     private void onOK() {
-        String user = userTextField.getText();
-        String password = "";
+        user = userTextField.getText();
         for (char c : passwordField.getPassword()) {
             String str = String.valueOf(c);
             password = password + str;
@@ -38,4 +38,11 @@ public class Pwd extends JDialog {
         dispose();
     }
 
+    public static String getUser() {
+        return user;
+    }
+
+    public static String getPassword() {
+        return password;
+    }
 }

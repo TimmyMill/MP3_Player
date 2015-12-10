@@ -1,16 +1,17 @@
 package com.timmy;
 
-import javax.swing.*;
 import java.sql.*;
 
 public class Database {
 
     static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
     static final String DB_CONNECTION_URL = "jdbc:mysql://localhost:3306/";
-    static final String USER = "root";
-    static final String PASSWORD = "linuxMy$ql";
-    static JPasswordField pswd;
-    static JPanel pwdPanel;
+    static final String USER = Pwd.getUser();
+    static final String PASSWORD = Pwd.getPassword();
+
+    public Database() {
+
+    }
 
     public static void loadDriver() {
 
@@ -23,12 +24,6 @@ public class Database {
             System.exit(-1);  //No driver? Need to fix before anything else will work. So quit the program
         }
 
-    }
-
-    public static void initDB() {
-        Pwd pwd = new Pwd();
-        pwdPanel = new JPanel();
-        pwd.setContentPane(pwdPanel);
     }
 
     public static void runDB() {

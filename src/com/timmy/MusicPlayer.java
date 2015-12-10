@@ -24,15 +24,17 @@ public class MusicPlayer extends JFrame {
     private boolean playing = false;
     protected Menu menu;
     protected PlaybackControls audioControls;
+    protected Database library;
 
     public MusicPlayer(final Menu menu, final PlaybackControls audioControls) {
         this.menu = menu;
         this.audioControls = audioControls;
+        initDB();
+        library = new Database();
 
         //JFrame Settings
 //        menu = new Menu(); //create the menu built in the menu class so we can add it to the JFrame
         setJMenuBar(menu); //set our menu bar to the JFrame
-//        add(Database.pwdPanel);
         setContentPane(playerPanel);
         setTitle("MusicFile");
         setPreferredSize(new Dimension(500, 500));
@@ -96,7 +98,13 @@ public class MusicPlayer extends JFrame {
                 bpe.printStackTrace();
             }
         }
+    }
 
+    public void initDB() {
+        Pwd dialog = new Pwd();
+        dialog.pack();
+        dialog.setVisible(true);
+        Database.loadDriver();
     }
 
 }
