@@ -46,10 +46,15 @@ public class Database {
             String useDatabaseSQL = "USE music_library";
             statement.executeUpdate(useDatabaseSQL);
 
-            //Create a table in the database, if it doesn't exist
+            //Create songs table in the database if it doesn't exist
             String createTableSQL = "CREATE TABLE IF NOT EXISTS songs (title VARCHAR(30), artist VARCHAR(30), album VARCHAR (30))";
             statement.executeUpdate(createTableSQL);
             System.out.println("Created songs table");
+
+            //Create file table in the database if it doesn't exist
+            createTableSQL = "CREATE TABLE IF NOT EXISTS file (path VARCHAR(50), file VARCHAR (30))";
+            statement.executeUpdate(createTableSQL);
+            System.out.println("Created file table");
         }
 
         catch (SQLException e) {
@@ -62,19 +67,9 @@ public class Database {
 
     }
 
-    public void runDB() {
-//        Statement statement = null;
-//        PreparedStatement psStat = null;
-//        Connection conn = null;
-//        ResultSet rs = null;
+    public void getSong() {
 
         try {
-//            conn = DriverManager.getConnection(DB_CONNECTION_URL, USER, PASSWORD);
-//            statement = conn.createStatement();
-//            //Create a table in the database, if it doesn't exist
-//            String createTableSQL = "CREATE TABLE IF NOT EXISTS songs (title VARCHAR(30), artist VARCHAR(30), album VARCHAR (30))";
-//            statement.executeUpdate(createTableSQL);
-//            System.out.println("Created songs table");
 
             String fetchAllSongs = "SELECT * FROM songs";
             rs = statement.executeQuery(fetchAllSongs);

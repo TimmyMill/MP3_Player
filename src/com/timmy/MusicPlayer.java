@@ -21,7 +21,8 @@ public class MusicPlayer extends JFrame {
     private JLabel currentlyPlayingLabel;
     private JPanel eastPanel;
     private JButton stopButton;
-    private boolean playing = false;
+
+    //Custom Built Objects needed by the Music Player
     protected Menu menu;
     protected PlaybackControls audioControls;
     protected Database library;
@@ -29,13 +30,15 @@ public class MusicPlayer extends JFrame {
     public MusicPlayer(final Menu menu, final PlaybackControls audioControls) {
         this.menu = menu;
         this.audioControls = audioControls;
+
+        //Run login method before database is initialized to ensure database connection is made
         loginDB();
-        library = new Database();
-        library.initDB();
+
+        library = new Database(); //initialize database object
+        library.initDB();         //run method to connect and create the database if it doesn't already exist
 
         //JFrame Settings
-//        menu = new Menu(); //create the menu built in the menu class so we can add it to the JFrame
-        setJMenuBar(menu); //set our menu bar to the JFrame
+        setJMenuBar(menu); //set our custom menu bar to the JFrame
         setContentPane(playerPanel);
         setTitle("MusicFile");
         setPreferredSize(new Dimension(500, 500));
