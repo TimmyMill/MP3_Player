@@ -22,6 +22,7 @@ public class Database {
         try {
             Class.forName(JDBC_DRIVER);
         }
+
         catch (ClassNotFoundException cnfe) {
             System.out.println("Can't instantiate driver class; check you have drivers and classpath configured correctly?");
             cnfe.printStackTrace();
@@ -31,24 +32,30 @@ public class Database {
     }
 
     public void initDB() {
+
         try {
             conn = DriverManager.getConnection(DB_CONNECTION_URL, USER, PASSWORD);
+
             //Create the database if it doesn't exist
             String createDatabaseSQL = "CREATE DATABASE IF NOT EXISTS music_library";
             statement = conn.createStatement();
             statement.executeUpdate(createDatabaseSQL);
             System.out.println("Created music_library table");
+
             //Use the music_library database
             String useDatabaseSQL = "USE music_library";
             statement.executeUpdate(useDatabaseSQL);
+
             //Create a table in the database, if it doesn't exist
             String createTableSQL = "CREATE TABLE IF NOT EXISTS songs (title VARCHAR(30), artist VARCHAR(30), album VARCHAR (30))";
             statement.executeUpdate(createTableSQL);
             System.out.println("Created songs table");
+        }
 
-        } catch (SQLException e) {
+        catch (SQLException e) {
             e.printStackTrace();
         }
+
     }
 
     public void addSong() {
