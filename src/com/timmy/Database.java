@@ -1,5 +1,6 @@
 package com.timmy;
 
+import java.io.File;
 import java.sql.*;
 
 public class Database {
@@ -64,7 +65,23 @@ public class Database {
     }
 
     public void addSong() {
+        if (Menu.isAdd()) {
+            MusicFile mf = Menu.getSelectedFile();
+            String path = mf.getPath();
+            File file = mf.getFile();
 
+            try {
+                String psStatInsert = "INSERT INTO file VALUES (?,?)";
+                psStat = conn.prepareStatement(psStatInsert);
+                psStat.setString(1, path);
+                psStat.setObject(2, file);
+                psStat.executeUpdate();
+            }
+
+            catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     public void getSong() {
