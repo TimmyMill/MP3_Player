@@ -9,7 +9,7 @@ import javax.swing.KeyStroke;
 import java.awt.event.*;
 import java.io.File;
 
-public class Menu extends JMenuBar implements ActionListener, KeyListener {
+public class Menu extends JMenuBar implements KeyListener {
 
     protected JMenu fileMenu, controlsMenu, helpMenu; //create menus for file, controls, and help
     protected JMenuItem fOpen, fAdd, fClose;          //create menu items for the file menu
@@ -29,19 +29,19 @@ public class Menu extends JMenuBar implements ActionListener, KeyListener {
         //File Menu
         fileMenu = new JMenu("File");
         fileMenu.setMnemonic('f');
-        fileMenu.addActionListener(this);
+//        fileMenu.addActionListener(this);
         this.add(fileMenu);
 
         //Controls Menu
         controlsMenu = new JMenu("Controls");
         controlsMenu.setMnemonic('c');
-        controlsMenu.addActionListener(this);
+//        controlsMenu.addActionListener(this);
         this.add(controlsMenu);
 
         //Help Menu
         helpMenu = new JMenu("Help");
         helpMenu.setMnemonic('h');
-        helpMenu.addActionListener(this);
+//        helpMenu.addActionListener(this);
         this.add(helpMenu);
 
         /* Create menu items that each menu will hold */
@@ -53,14 +53,14 @@ public class Menu extends JMenuBar implements ActionListener, KeyListener {
         fOpen = new JMenuItem("Open");
         fOpen.setMnemonic('o');
         fOpen.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_O, InputEvent.CTRL_MASK));
-        fOpen.addActionListener(this);
+//        fOpen.addActionListener(this);
         fOpen.setActionCommand("Open");
         fileMenu.add(fOpen);
 
         //add
         fAdd = new JMenuItem("Add Music");
         fAdd.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_O, (InputEvent.CTRL_MASK + InputEvent.SHIFT_MASK) ));
-        fAdd.addActionListener(this);
+//        fAdd.addActionListener(this);
         fAdd.setActionCommand("Add");
         fileMenu.add(fAdd);
         fileMenu.addSeparator();
@@ -69,7 +69,7 @@ public class Menu extends JMenuBar implements ActionListener, KeyListener {
         fClose = new JMenuItem("Close Player");
         fClose.setMnemonic('x');
         fClose.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_X, InputEvent.CTRL_MASK));
-        fClose.addActionListener(this);
+//        fClose.addActionListener(this);
         fClose.setActionCommand("Close");
         fileMenu.add(fClose);
 
@@ -87,7 +87,7 @@ public class Menu extends JMenuBar implements ActionListener, KeyListener {
         //stop
         cStop = new JMenuItem("Stop");
 //        cPlay.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_SPACE, InputEvent.CTRL_MASK));
-        cStop.addActionListener(this);
+//        cStop.addActionListener(this);
         controlsMenu.add(cStop);
 
         //previous
@@ -138,40 +138,40 @@ public class Menu extends JMenuBar implements ActionListener, KeyListener {
     public static boolean isAdd() {return add;}
     public static void setAdd(boolean add) {Menu.add = add;}
 
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        String actionCommand = e.getActionCommand();
-        switch(actionCommand) {
-            case "Open": {
-                System.out.println("Open");
-                open = true;
-                selectSong(fOpen);
-                open = false;
-                break;
-
-            }
-            case "Add": {
-                System.out.println("Add");
-                add = true;
-                selectSong(fAdd);
-                add = false;
-                break;
-
-            }
-            case "Play": {
-                break;
-            }
-            case "Close": {
-                System.out.println("Close");
-                System.exit(0);
-
-                break;
-            }
-            default: {
-                System.out.println("Blah");
-            }
-        }
-    }
+//    @Override
+//    public void actionPerformed(ActionEvent e) {
+//        String actionCommand = e.getActionCommand();
+//        switch(actionCommand) {
+//            case "Open": {
+//                System.out.println("Open");
+//                open = true;
+//                selectSong(fOpen);
+//                open = false;
+//                break;
+//
+//            }
+//            case "Add": {
+//                System.out.println("Add");
+//                add = true;
+//                selectSong(fAdd);
+//                add = false;
+//                break;
+//
+//            }
+//            case "Play": {
+//                break;
+//            }
+//            case "Close": {
+//                System.out.println("Close");
+//                System.exit(0);
+//
+//                break;
+//            }
+//            default: {
+//                System.out.println("Blah");
+//            }
+//        }
+//    }
 
     @Override
     public void keyTyped(KeyEvent e) {

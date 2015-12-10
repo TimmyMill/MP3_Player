@@ -7,7 +7,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class MusicPlayer extends JFrame {
+public class MusicPlayer extends JFrame implements ActionListener {
 
     private JPanel playerPanel;
     private JTable table1;
@@ -48,6 +48,9 @@ public class MusicPlayer extends JFrame {
         setVisible(true);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
+        /* Action Listeners
+        **/
+
         //Action Listener for play button
         playButton.addActionListener(new ActionListener() {
             @Override
@@ -73,9 +76,11 @@ public class MusicPlayer extends JFrame {
                 menu.cPlay.setText("Play");
             }
         });
+
     }
 
-    //Method to control how the play button and play menu item function
+    /* Method to control how the play button and play menu item function
+    **/
     public void playControls() {
         //If song has been selected, do this
         if (Menu.getSelectedFile() != null) {
@@ -111,4 +116,42 @@ public class MusicPlayer extends JFrame {
         Database.loadDriver();
     }
 
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        String actionCommand = e.getActionCommand();
+        switch(actionCommand) {
+            case "Open": {
+                System.out.println("Open");
+                if (Menu.isOpen()) {
+                    Menu.selectSong(menu.fOpen);
+                    Menu.setOpen(false);
+                }
+                break;
+
+            }
+            case "Add": {
+                System.out.println("Add");
+                if (Menu.isAdd()) {
+                    Menu.selectSong(menu.fAdd);
+                    Menu.setAdd(false);
+                }
+                break;
+
+            }
+            case "Play": {
+                break;
+            }
+            case "Close": {
+                System.out.println("Close");
+                System.exit(0);
+
+                break;
+            }
+            default: {
+                System.out.println("Blah");
+            }
+        }
+    }
 }
+
+
