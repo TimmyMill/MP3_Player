@@ -9,7 +9,7 @@ public class Main {
     public static void main(String[] args) {
 //        loadDriver();
 //        runDB();
-//        musicLibrary.initDB();
+//        musicLibrary.loginDB();
         player = new MusicPlayer(menu, audioControls);
     }
 

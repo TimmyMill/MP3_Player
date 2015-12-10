@@ -29,8 +29,9 @@ public class MusicPlayer extends JFrame {
     public MusicPlayer(final Menu menu, final PlaybackControls audioControls) {
         this.menu = menu;
         this.audioControls = audioControls;
-        initDB();
+        loginDB();
         library = new Database();
+        library.initDB();
 
         //JFrame Settings
 //        menu = new Menu(); //create the menu built in the menu class so we can add it to the JFrame
@@ -100,7 +101,7 @@ public class MusicPlayer extends JFrame {
         }
     }
 
-    public void initDB() {
+    public void loginDB() {
         Pwd dialog = new Pwd();
         dialog.pack();
         dialog.setVisible(true);
