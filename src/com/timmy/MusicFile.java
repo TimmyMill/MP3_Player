@@ -1,7 +1,18 @@
 package com.timmy;
 
+import org.apache.tika.exception.TikaException;
+import org.apache.tika.metadata.Metadata;
+import org.apache.tika.parser.ParseContext;
+import org.apache.tika.parser.Parser;
+import org.apache.tika.parser.mp3.Mp3Parser;
+import org.xml.sax.SAXException;
+import org.xml.sax.helpers.DefaultHandler;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.InputStream;
+import java.io.IOException;
 import java.io.Serializable;
+import java.util.ArrayList;
 
 public class MusicFile implements Serializable {
 
@@ -10,61 +21,46 @@ public class MusicFile implements Serializable {
     private String title;
     private String path;
     private File file;
+    private ArrayList<String> songInfo;
 
-    public MusicFile(String path, File fileName) {
+    public MusicFile(String path, File file) {
         this.path = path;
-        this.file = fileName;
-    }
-
-    public String getArtist() {
-        return artist;
-    }
-
-    public void setArtist(String artist) {
-        this.artist = artist;
-    }
-
-    public String getAlbum() {
-        return album;
-    }
-
-    public void setAlbum(String album) {
-        this.album = album;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public String getPath() {
-        return path;
-    }
-
-    public void setPath(String path) {
-        this.path = path;
-    }
-
-    public File getFile() {
-        return file;
-    }
-
-    public void setFile(File file) {
         this.file = file;
+        songInfo = new ArrayList<>();
+        getSongData();
     }
 
-    @Override
-    public String toString() {
-        return "Path: " + path + " " + "File: " + file;
-        /*"MusicFile{" +
-        "artist='" + artist + '\'' +
-        ", album='" + album + '\'' +
-        ", title='" + title + '\'' +
-        ", path='" + path + '\'' +
-        ", file=" + file +
-        '}'; */
+    private void getSongData() {
+        try (InputStream input = new FileInputStream(file))
+        {
+            DefaultHandler handler = new DefaultHandler();
+            Metadata metadata = new Metadata();
+            Parser parser = new Mp3Parser();
+            ParseContext parseCon = new ParseContext();
+            parser.parse(input, handler, metadata, parseCon);
+
+            title = metadata.get("title");
+            artist = metadata.get("xmpDM:artist");
+            album = metadata.get("xmpDM:album");
+
+            songInfo.add(title);
+            songInfo.add(artist);
+            songInfo.add(album);
+
+            input.close();
+        }
+
+        catch (IOException | SAXException | TikaException e) {
+            e.printStackTrace();
+        }
+
     }
+
+    //Getters
+    public ArrayList<String> getSongInfo() {return songInfo;}
+    public String getPath() {return path;}
+    public File getFile() {return file;}
+    public String getArtist() {return artist;}
+    public String getAlbum() {return album;}
+    public String getTitle() {return title;}
 }

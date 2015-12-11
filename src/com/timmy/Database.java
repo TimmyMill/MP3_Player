@@ -1,6 +1,5 @@
 package com.timmy;
 
-import java.io.File;
 import java.sql.*;
 
 public class Database {
@@ -9,10 +8,10 @@ public class Database {
     private static final String DB_CONNECTION_URL = "jdbc:mysql://localhost:3306/";
     private static final String USER = Pwd.getUser();
     private static final String PASSWORD = Pwd.getPassword();
-    Connection conn = null;
-    PreparedStatement psStat = null;
-    Statement statement = null;
-    ResultSet rs = null;
+    private static Connection conn = null;
+    private static PreparedStatement psStat = null;
+    private static Statement statement = null;
+    private static ResultSet rs = null;
 
     public Database() {
 
@@ -53,9 +52,12 @@ public class Database {
             System.out.println("Created songs table");
 
             //Create file table in the database if it doesn't exist
-            createTableSQL = "CREATE TABLE IF NOT EXISTS file (path VARCHAR(50), file VARCHAR (30))";
+            createTableSQL = "CREATE TABLE IF NOT EXISTS file (path VARCHAR(60))";
             statement.executeUpdate(createTableSQL);
             System.out.println("Created file table");
+
+            //Get all of the songs from the file table
+            loadMusicLibrary();
         }
 
         catch (SQLException e) {
@@ -64,23 +66,40 @@ public class Database {
 
     }
 
-    public void addSong() {
+    public static void addSong() {
         if (Menu.isAdd()) {
             MusicFile mf = Menu.getSelectedFile();
             String path = mf.getPath();
-            File file = mf.getFile();
 
             try {
-                String psStatInsert = "INSERT INTO file VALUES (?,?)";
+                String psStatInsert = "INSERT INTO file VALUES (?)";
                 psStat = conn.prepareStatement(psStatInsert);
                 psStat.setString(1, path);
-                psStat.setObject(2, file);
                 psStat.executeUpdate();
+                System.out.println("Added " + mf);
+                System.out.println("Path: " + path);
             }
 
             catch (SQLException e) {
                 e.printStackTrace();
             }
+        }
+    }
+
+    public void loadMusicLibrary() {
+
+        try {
+
+            String fetchAllSongs = "SELECT * FROM file";
+            rs = statement.executeQuery(fetchAllSongs);
+            while (rs.next()) {
+                String path = rs.getString("Path");
+                System.out.println("Path: " + path);
+            }
+
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
         }
     }
 

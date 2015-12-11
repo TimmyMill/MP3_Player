@@ -43,9 +43,15 @@
             <properties/>
             <border type="none"/>
             <children>
-              <component id="8066c" class="javax.swing.JTable" binding="table1" default-binding="true">
+              <component id="8066c" class="javax.swing.JTable" binding="musicTable">
                 <constraints/>
-                <properties/>
+                <properties>
+                  <fillsViewportHeight value="false"/>
+                </properties>
+                <clientProperties>
+                  <JTable.autoStartsEdit class="java.lang.Boolean" value="false"/>
+                  <Table.isFileList class="java.lang.Boolean" value="false"/>
+                </clientProperties>
               </component>
             </children>
           </scrollpane>

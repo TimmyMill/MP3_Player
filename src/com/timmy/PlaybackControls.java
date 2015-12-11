@@ -1,9 +1,10 @@
 package com.timmy;
 
-import javazoom.jlgui.basicplayer.BasicPlayerException;
-import javazoom.jlgui.basicplayer.BasicPlayer;
+import javazoom.jlgui.basicplayer.*;
 
-public class PlaybackControls extends BasicPlayer {
+import java.util.Map;
+
+public class PlaybackControls extends BasicPlayer implements BasicPlayerListener{
 
     private boolean isPlaying = false;
     private boolean isPaused = false;
@@ -55,4 +56,24 @@ public class PlaybackControls extends BasicPlayer {
 
     public boolean isPaused() {return isPaused;}
     public void setPaused(boolean paused) {isPaused = paused;}
+
+    @Override
+    public void opened(Object o, Map map) {
+
+    }
+
+    @Override
+    public void progress(int i, long l, byte[] bytes, Map map) {
+
+    }
+
+    @Override
+    public void stateUpdated(BasicPlayerEvent basicPlayerEvent) {
+
+    }
+
+    @Override
+    public void setController(BasicController basicController) {
+
+    }
 }

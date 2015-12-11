@@ -3,6 +3,7 @@ package com.timmy;
 import javazoom.jlgui.basicplayer.BasicPlayerException;
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -10,7 +11,7 @@ import java.awt.event.ActionListener;
 public class MusicPlayer extends JFrame implements ActionListener {
 
     private JPanel playerPanel;
-    private JTable table1;
+    private JTable musicTable;
     private JButton playButton;
     private JPanel northPanel;
     private JTree tree1;
@@ -21,6 +22,7 @@ public class MusicPlayer extends JFrame implements ActionListener {
     private JLabel currentlyPlayingLabel;
     private JPanel eastPanel;
     private JButton stopButton;
+    private DefaultTableModel tableModel;
 
     //Custom Built Objects needed by the Music Player
     protected Menu menu;
@@ -47,6 +49,12 @@ public class MusicPlayer extends JFrame implements ActionListener {
         setFocusable(true);
         setVisible(true);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+
+        //JTable
+        tableModel = new DefaultTableModel();
+
+        musicTable.setModel(tableModel);
+
 
         /* Action Listeners
         **/
@@ -118,39 +126,7 @@ public class MusicPlayer extends JFrame implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        String actionCommand = e.getActionCommand();
-        switch(actionCommand) {
-            case "Open": {
-                System.out.println("Open");
-                if (Menu.isOpen()) {
-                    Menu.selectSong(menu.fOpen);
-                    Menu.setOpen(false);
-                }
-                break;
-
-            }
-            case "Add": {
-                System.out.println("Add");
-                if (Menu.isAdd()) {
-                    Menu.selectSong(menu.fAdd);
-                    Menu.setAdd(false);
-                }
-                break;
-
-            }
-            case "Play": {
-                break;
-            }
-            case "Close": {
-                System.out.println("Close");
-                System.exit(0);
-
-                break;
-            }
-            default: {
-                System.out.println("Blah");
-            }
-        }
+        menu.fAdd.isSelected();
     }
 }
 
