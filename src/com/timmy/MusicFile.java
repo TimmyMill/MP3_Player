@@ -63,4 +63,11 @@ public class MusicFile implements Serializable {
     public String getArtist() {return artist;}
     public String getAlbum() {return album;}
     public String getTitle() {return title;}
+
+    @Override
+    public String toString() {
+        return  "Artist '" + artist + '\'' +
+                ", Title '" + title + '\'' +
+                ", Album '" + album + '\'';
+    }
 }

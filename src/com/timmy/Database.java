@@ -24,9 +24,9 @@ public class Database {
         }
 
         catch (ClassNotFoundException cnfe) {
-            System.out.println("Can't instantiate driver class; check you have drivers and classpath configured correctly?");
+            System.out.println("Couldn't load Driver Class. Check to see if your drivers and classpath are configured correctly?");
             cnfe.printStackTrace();
-            System.exit(-1);  //No driver? Need to fix before anything else will work. So quit the program
+            System.exit(-1);  //If there is no driver the program won't run correctly. Quit to check configuration.
         }
 
     }
@@ -95,7 +95,7 @@ public class Database {
                 psStat.setString(1, mf.getPath());
                 psStat.executeUpdate();
                 System.out.println("Added: " + mf.getTitle());
-                System.out.println("Path: " + mf.getPath());
+//                System.out.println("Path: " + mf.getPath());
             }
 
             catch (SQLException e) {
@@ -112,7 +112,7 @@ public class Database {
             rs = statement.executeQuery(fetchAllSongs);
             while (rs.next()) {
                 String path = rs.getString("Path");
-                System.out.println("Path: " + path);
+//                System.out.println("Path: " + path);
             }
 
         }

@@ -50,11 +50,18 @@ public class MusicPlayer extends JFrame implements ActionListener {
         setVisible(true);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
-        //JTable
+        //JTable Settings
         tableModel = new DefaultTableModel();
 
-        musicTable.setModel(tableModel);
+        //Create columns
+        String[] columnHeadings = {"Title", "Artist", "Album"};
+        for (String str : columnHeadings) { //iterate column headings array
+            tableModel.addColumn(str);
+            /* creates the columns for the table and sets their headings
+            with the string values from array */
+        }
 
+        musicTable.setModel(tableModel);
 
         /* Action Listeners
         **/
@@ -96,6 +103,7 @@ public class MusicPlayer extends JFrame implements ActionListener {
                 //If song isn't playing AND isn't paused, start playback
                 if (!audioControls.isPlaying() && !audioControls.isPaused()) {
                     audioControls.play();
+                    currentlyPlayingLabel.setText(Menu.getSelectedFile().getSongInfo().toString());
                     playButton.setText("Pause"); //song is playing so change the button to pause
                     menu.cPlay.setText("Pause");
                 }
@@ -110,6 +118,8 @@ public class MusicPlayer extends JFrame implements ActionListener {
                     audioControls.resume();
                     playButton.setText("Pause"); //song has resumed, so change the button back to pause
                     menu.cPlay.setText("Pause");
+                } else {
+                    currentlyPlayingLabel.setText("");
                 }
             } catch (BasicPlayerException bpe) {
                 bpe.printStackTrace();

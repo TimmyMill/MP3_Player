@@ -108,6 +108,13 @@ public class Menu extends JMenuBar implements ActionListener, KeyListener {
         helpMenu.add(hAbout);
     }
 
+    //Getters & Setters
+    public static MusicFile getSelectedFile() {return selectedFile;}
+    public static boolean isOpen() {return open;}
+    public static void setOpen(boolean open) {Menu.open = open;}
+    public static boolean isAdd() {return add;}
+    public static void setAdd(boolean add) {Menu.add = add;}
+
     //Method to open or add a file
 
     public static void selectSong(JMenuItem menuItem) {
@@ -133,12 +140,6 @@ public class Menu extends JMenuBar implements ActionListener, KeyListener {
         }
 
     }
-
-    public static MusicFile getSelectedFile() {return selectedFile;}
-    public static boolean isOpen() {return open;}
-    public static void setOpen(boolean open) {Menu.open = open;}
-    public static boolean isAdd() {return add;}
-    public static void setAdd(boolean add) {Menu.add = add;}
 
     @Override
     public void actionPerformed(ActionEvent e) {
