@@ -66,18 +66,36 @@ public class Database {
 
     }
 
-    public static void addSong() {
+    public static void addToSongs() {
         if (Menu.isAdd()) {
             MusicFile mf = Menu.getSelectedFile();
-            String path = mf.getPath();
+            try {
+                String psStatInsert = "INSERT INTO songs VALUES (?,?,?)";
+                psStat = conn.prepareStatement(psStatInsert);
+                psStat.setString(1, mf.getTitle() );
+                psStat.setString(2, mf.getArtist() );
+                psStat.setString(3, mf.getAlbum() );
+                psStat.executeUpdate();
+                System.out.println("Added song: " + mf.getTitle());
+
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public static void addSongPath() {
+        if (Menu.isAdd()) {
+            MusicFile mf = Menu.getSelectedFile();
+//            String path = mf.getPath();
 
             try {
                 String psStatInsert = "INSERT INTO file VALUES (?)";
                 psStat = conn.prepareStatement(psStatInsert);
-                psStat.setString(1, path);
+                psStat.setString(1, mf.getPath());
                 psStat.executeUpdate();
-                System.out.println("Added " + mf);
-                System.out.println("Path: " + path);
+                System.out.println("Added: " + mf.getTitle());
+                System.out.println("Path: " + mf.getPath());
             }
 
             catch (SQLException e) {

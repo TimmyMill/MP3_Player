@@ -1,6 +1,5 @@
 package com.timmy;
 
-import javazoom.jlgui.basicplayer.BasicPlayerException;
 import javax.swing.JFileChooser;
 import javax.swing.JMenuItem;
 import javax.swing.JMenu;
@@ -157,7 +156,8 @@ public class Menu extends JMenuBar implements ActionListener, KeyListener {
                 System.out.println("Add");
                 add = true;
                 selectSong(fAdd);
-                Database.addSong();
+                Database.addToSongs();
+                Database.addSongPath();
                 add = false;
                 break;
 
