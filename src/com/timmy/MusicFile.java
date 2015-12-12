@@ -46,8 +46,7 @@ public class MusicFile implements Serializable {
             songInfo.add(title);
             songInfo.add(artist);
             songInfo.add(album);
-
-            input.close();
+//            input.close();
         }
 
         catch (IOException | SAXException | TikaException e) {

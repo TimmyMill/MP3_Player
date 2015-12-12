@@ -119,24 +119,31 @@ public class Menu extends JMenuBar implements ActionListener, KeyListener {
 
     public static void selectSong(JMenuItem menuItem) {
         JFileChooser fc = new JFileChooser();
+        fc.setFileSelectionMode(JFileChooser.FILES_ONLY);
+        fc.setCurrentDirectory(new File(System.getProperty("user.home")));
 
         if (open) {
             fc.setDialogTitle("Open File");
+            fc.showOpenDialog(menuItem);
+
+            if (fc.getSelectedFile() != null) {
+                File f = fc.getSelectedFile();
+                String path = f.getPath();
+                selectedFile = new MusicFile(path, f);
+            }
         }
+
         if (add) {
             fc.setDialogTitle("Add File");
-        }
+            fc.showOpenDialog(menuItem);
 
-        fc.setFileSelectionMode(JFileChooser.FILES_ONLY);
-        fc.setCurrentDirectory(new File(System.getProperty("user.home")));
-        fc.showOpenDialog(menuItem);
-
-        if (fc.getSelectedFile() != null) {
-            File f = fc.getSelectedFile();
-            String path = f.getPath();
-            selectedFile = new MusicFile(path, f);
-            System.out.println("Selection: " + selectedFile);
-
+            if (fc.getSelectedFile() != null) {
+                File f = fc.getSelectedFile();
+                String path = f.getPath();
+                selectedFile = new MusicFile(path, f);
+                Database.addToSongs();
+                Database.addSongPath();
+            }
         }
 
     }
@@ -157,8 +164,6 @@ public class Menu extends JMenuBar implements ActionListener, KeyListener {
                 System.out.println("Add");
                 add = true;
                 selectSong(fAdd);
-                Database.addToSongs();
-                Database.addSongPath();
                 add = false;
                 break;
 

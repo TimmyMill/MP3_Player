@@ -61,6 +61,11 @@ public class MusicPlayer extends JFrame implements ActionListener {
             with the string values from array */
         }
 
+        //Create rows
+        for (MusicFile file : Database.getLibraryList()) {
+            tableModel.addRow(file.getSongInfo().toArray());
+        }
+
         musicTable.setModel(tableModel);
 
         /* Action Listeners
