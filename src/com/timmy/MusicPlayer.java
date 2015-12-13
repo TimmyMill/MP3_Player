@@ -5,17 +5,14 @@ import javazoom.jlgui.basicplayer.BasicPlayerException;
 import javax.swing.*;
 import javax.swing.table.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import java.awt.event.*;
+import java.io.File;
 import java.io.Serializable;
-import java.util.Arrays;
+import java.util.ArrayList;
 
 public class MusicPlayer extends JFrame implements ActionListener, Serializable {
 
     private JPanel playerPanel;
-    private JTable musicTable;
     private JButton playButton;
     private JPanel northPanel;
     private JTree tree1;
@@ -26,8 +23,10 @@ public class MusicPlayer extends JFrame implements ActionListener, Serializable 
     private JLabel currentlyPlayingLabel;
     private JPanel eastPanel;
     private JButton stopButton;
-    private TableModel tableModel;
+    private JTable table;
+    private DefaultTableModel tableModel;
     private ListSelectionModel tableListModel;
+    private DefaultTableColumnModel columnModel;
 
     //Custom Built Objects needed by the Music Player
     protected Menu menu;
@@ -37,9 +36,10 @@ public class MusicPlayer extends JFrame implements ActionListener, Serializable 
     public MusicPlayer(final Menu menu, final PlaybackControls audioControls) {
         this.menu = menu;
         this.audioControls = audioControls;
+        String[] columnHeadings = {"Title", "Artist", "Album", "Path"};
 
         //Run login method before database is initialized to ensure database connection is made
-        loginDB();
+//        loginDB();
 
         library = new Database(); //initialize database object
         library.initDB();         //run method to connect and create the database if it doesn't already exist
@@ -48,7 +48,7 @@ public class MusicPlayer extends JFrame implements ActionListener, Serializable 
         setJMenuBar(menu); //set our custom menu bar to the JFrame
         setContentPane(playerPanel);
         setTitle("MusicFile");
-        setPreferredSize(new Dimension(500, 500));
+        setPreferredSize(new Dimension(600, 600));
         pack();
         setResizable(true);
         setFocusable(true);
@@ -59,35 +59,43 @@ public class MusicPlayer extends JFrame implements ActionListener, Serializable 
         */
 
         //Table Model
-        tableModel = new DefaultTableModel();
-//        {
-//            public boolean isCellEditable(int rowIndex, int colIndex) {
-//                return false;
-//            }
-//        };
+        tableModel = new DefaultTableModel() {
+            public boolean isCellEditable(int rowIndex, int colIndex) {
+                return false;
+            }
+        };
 
-//        //Create columns
-//        String[] columnHeadings = {"Title", "Artist", "Album"};
-//        for (String str : columnHeadings) { //iterate column headings array
-//            tableModel.addColumn(str);
-//            /* creates the columns for the table and sets their headings
-//            with the string values from array */
-//        }
-//
-//        //Create rows
-//        for (MusicFile file : Database.getLibraryList()) {
+        //Create columns
+        tableModel.setColumnIdentifiers(columnHeadings); //use a string array to give each column a name
+
+        //Create rows
+        for (MusicFile file : Database.getLibraryList()) { //iterate the library list created in Database
 //            tableModel.addRow(file.getSongInfo().toArray());
-//        }
+            ArrayList<String> lst = file.getSongInfo();
+            lst.add(file.getPath());
+            Object[] str = lst.toArray();
+            tableModel.addRow(str);
+            /* for each audio file, use the getSongInfo method to extract the metadata and then add it to an array */
+            /* use the array to add a new row to the table */
+        }
 
         //Table List Model
         tableListModel = new DefaultListSelectionModel();
 //        tableListModel.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
 
-        musicTable.setModel(tableModel);
-        musicTable.setSelectionModel(tableListModel);
+        //Table Column Model
+        columnModel = new DefaultTableColumnModel();
+        columnModel.setSelectionModel(tableListModel);
 
-        musicTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        musicTable.setRowSelectionAllowed(true);
+
+        table.setModel(tableModel);
+        table.setSelectionModel(tableListModel);
+
+        table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        table.setRowSelectionAllowed(true);
+        final TableColumn filePathColumn = table.getColumnModel().getColumn(3);
+        table.getColumnModel().removeColumn(filePathColumn);
+
 
 
         /* Action Listeners
@@ -119,34 +127,36 @@ public class MusicPlayer extends JFrame implements ActionListener, Serializable 
             }
         });
 
-        musicTable.addMouseListener(new MouseAdapter() {
+        table.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
                 if (e.getClickCount() == 2) {
                     System.out.println("Double Click");
-//                    musicTable.getSelectedRow();
-                    System.out.println("Row= " + musicTable.getSelectedRow());
-//                    System.out.println("Column= " + Arrays.toString(musicTable.getSelectedColumns()));
-                    System.out.println(tableModel.getValueAt(musicTable.getSelectedRow(), 2));
-                    Object f = tableModel.getValueAt(musicTable.getSelectedRow(), musicTable.getSelectedColumn());
-                    System.out.println(f.toString());
+                    Object g = tableModel.getValueAt(table.getSelectedRow(), 3);
+                    Menu.setSelectedFile(new MusicFile((String) g, new File(g.toString())));
+                    playControls();
+                    System.out.println(g.toString());
+
                 }
+
             }
 
             @Override
             public void mousePressed(MouseEvent e) {
                 super.mousePressed(e);
             }
+        });
 
+        table.addContainerListener(new ContainerAdapter() {
             @Override
-            public void mouseReleased(MouseEvent e) {
-                super.mouseReleased(e);
+            public void componentAdded(ContainerEvent e) {
+                super.componentAdded(e);
             }
 
             @Override
-            public void mouseEntered(MouseEvent e) {
-                super.mouseEntered(e);
+            public void componentRemoved(ContainerEvent e) {
+                super.componentRemoved(e);
             }
         });
     }

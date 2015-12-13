@@ -110,6 +110,7 @@ public class Menu extends JMenuBar implements ActionListener, KeyListener {
 
     //Getters & Setters
     public static MusicFile getSelectedFile() {return selectedFile;}
+    public static void setSelectedFile(MusicFile selectedFile) {Menu.selectedFile = selectedFile;}
     public static boolean isOpen() {return open;}
     public static void setOpen(boolean open) {Menu.open = open;}
     public static boolean isAdd() {return add;}

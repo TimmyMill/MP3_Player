@@ -21,7 +21,7 @@ public class MusicFile implements Serializable {
     private String title;
     private String path;
     private File file;
-    private ArrayList<String> songInfo;
+    private ArrayList<String> songInfo; //string list containing information about an audio file (artist, album, title)
 
     public MusicFile(String path, File file) {
         this.path = path;
@@ -30,6 +30,8 @@ public class MusicFile implements Serializable {
         getSongData();
     }
 
+    /* Method to parse metadata and retrieve useful information from an audio file
+    */
     private void getSongData() {
         try (InputStream input = new FileInputStream(file))
         {
