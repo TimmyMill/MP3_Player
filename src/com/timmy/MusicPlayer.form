@@ -46,11 +46,16 @@
               <component id="8066c" class="javax.swing.JTable" binding="musicTable">
                 <constraints/>
                 <properties>
-                  <fillsViewportHeight value="false"/>
+                  <autoCreateRowSorter value="true"/>
+                  <columnSelectionAllowed value="true"/>
+                  <dragEnabled value="true"/>
+                  <enabled value="true"/>
+                  <fillsViewportHeight value="true"/>
+                  <rowSelectionAllowed value="true"/>
                 </properties>
                 <clientProperties>
                   <JTable.autoStartsEdit class="java.lang.Boolean" value="false"/>
-                  <Table.isFileList class="java.lang.Boolean" value="false"/>
+                  <Table.isFileList class="java.lang.Boolean" value="true"/>
                 </clientProperties>
               </component>
             </children>

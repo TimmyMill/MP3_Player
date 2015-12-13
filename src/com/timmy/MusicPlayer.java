@@ -3,12 +3,16 @@ package com.timmy;
 import javazoom.jlgui.basicplayer.BasicPlayerException;
 
 import javax.swing.*;
-import javax.swing.table.DefaultTableModel;
+import javax.swing.table.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.io.Serializable;
+import java.util.Arrays;
 
-public class MusicPlayer extends JFrame implements ActionListener {
+public class MusicPlayer extends JFrame implements ActionListener, Serializable {
 
     private JPanel playerPanel;
     private JTable musicTable;
@@ -22,7 +26,8 @@ public class MusicPlayer extends JFrame implements ActionListener {
     private JLabel currentlyPlayingLabel;
     private JPanel eastPanel;
     private JButton stopButton;
-    private DefaultTableModel tableModel;
+    private TableModel tableModel;
+    private ListSelectionModel tableListModel;
 
     //Custom Built Objects needed by the Music Player
     protected Menu menu;
@@ -50,23 +55,40 @@ public class MusicPlayer extends JFrame implements ActionListener {
         setVisible(true);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
-        //JTable Settings
+        /* JTable Settings
+        */
+
+        //Table Model
         tableModel = new DefaultTableModel();
+//        {
+//            public boolean isCellEditable(int rowIndex, int colIndex) {
+//                return false;
+//            }
+//        };
 
-        //Create columns
-        String[] columnHeadings = {"Title", "Artist", "Album"};
-        for (String str : columnHeadings) { //iterate column headings array
-            tableModel.addColumn(str);
-            /* creates the columns for the table and sets their headings
-            with the string values from array */
-        }
+//        //Create columns
+//        String[] columnHeadings = {"Title", "Artist", "Album"};
+//        for (String str : columnHeadings) { //iterate column headings array
+//            tableModel.addColumn(str);
+//            /* creates the columns for the table and sets their headings
+//            with the string values from array */
+//        }
+//
+//        //Create rows
+//        for (MusicFile file : Database.getLibraryList()) {
+//            tableModel.addRow(file.getSongInfo().toArray());
+//        }
 
-        //Create rows
-        for (MusicFile file : Database.getLibraryList()) {
-            tableModel.addRow(file.getSongInfo().toArray());
-        }
+        //Table List Model
+        tableListModel = new DefaultListSelectionModel();
+//        tableListModel.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
 
         musicTable.setModel(tableModel);
+        musicTable.setSelectionModel(tableListModel);
+
+        musicTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        musicTable.setRowSelectionAllowed(true);
+
 
         /* Action Listeners
         **/
@@ -97,6 +119,36 @@ public class MusicPlayer extends JFrame implements ActionListener {
             }
         });
 
+        musicTable.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
+                if (e.getClickCount() == 2) {
+                    System.out.println("Double Click");
+//                    musicTable.getSelectedRow();
+                    System.out.println("Row= " + musicTable.getSelectedRow());
+//                    System.out.println("Column= " + Arrays.toString(musicTable.getSelectedColumns()));
+                    System.out.println(tableModel.getValueAt(musicTable.getSelectedRow(), 2));
+                    Object f = tableModel.getValueAt(musicTable.getSelectedRow(), musicTable.getSelectedColumn());
+                    System.out.println(f.toString());
+                }
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+                super.mousePressed(e);
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+                super.mouseReleased(e);
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                super.mouseEntered(e);
+            }
+        });
     }
 
     /* Method to control how the play button and play menu item function
@@ -132,11 +184,11 @@ public class MusicPlayer extends JFrame implements ActionListener {
         }
     }
 
-    public void loginDB() {
+    public static void loginDB() {
         Pwd dialog = new Pwd();
         dialog.pack();
         dialog.setVisible(true);
-        Database.loadDriver();
+//        Database.loadDriver();
     }
 
     @Override

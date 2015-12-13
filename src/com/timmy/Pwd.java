@@ -38,11 +38,12 @@ public class Pwd extends JDialog {
         dispose();
     }
 
-    public static String getUser() {
-        return user;
-    }
+    //Get & Set User
+    public static String getUser() {return user;}
+    public static void setUser(String user) {Pwd.user = user;}
 
-    public static String getPassword() {
-        return password;
-    }
+    //Get & Set Password
+    public static String getPassword() {return password;}
+    public static void setPassword(String password) {Pwd.password = password;}
+
 }

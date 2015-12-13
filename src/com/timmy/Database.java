@@ -37,6 +37,8 @@ public class Database {
     public void initDB() {
 
         try {
+            loadDriver();
+//            MusicPlayer.loginDB();
             conn = DriverManager.getConnection(DB_CONNECTION_URL, USER, PASSWORD);
 
             //Create the database if it doesn't exist
@@ -65,6 +67,14 @@ public class Database {
 
         catch (SQLException e) {
             e.printStackTrace();
+            System.out.println(e.getErrorCode());
+            if (e.getErrorCode() == 1045) {
+                Pwd.setUser("");
+                Pwd.setPassword("");
+                MusicPlayer.loginDB();
+                initDB();
+            }
+
         }
 
     }
