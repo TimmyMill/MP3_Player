@@ -55,6 +55,12 @@ public class MusicPlayer extends JFrame implements ActionListener, Serializable 
         setVisible(true);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
+        //Set Control Button Mnemonics
+        playButton.setMnemonic(KeyEvent.VK_P);
+        stopButton.setMnemonic(KeyEvent.VK_S);
+        previousButton.setMnemonic(KeyEvent.VK_LEFT);
+        nextButton.setMnemonic(KeyEvent.VK_RIGHT);
+
         /* JTable Settings
         */
 
@@ -127,16 +133,36 @@ public class MusicPlayer extends JFrame implements ActionListener, Serializable 
             }
         });
 
+        //Action Listener for previous button
+        previousButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+            }
+        });
+
+        //Action Listener for next button
+        nextButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+            }
+        });
+
         table.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
+                //If mouse is double clicked, get the row that's selected to play song
                 if (e.getClickCount() == 2) {
-                    System.out.println("Double Click");
-                    Object g = tableModel.getValueAt(table.getSelectedRow(), 3);
-                    Menu.setSelectedFile(new MusicFile((String) g, new File(g.toString())));
+//                    System.out.println("Double Click");
+                    Object f = tableModel.getValueAt(table.getSelectedRow(), 3);
+                    //create a new object to hold information about the selected row and that song's filepath
+                    Menu.setSelectedFile(new MusicFile((String) f, new File(f.toString())));
+                    /* create a new music file using our throwaway object so we can load the file to play
+                     * set the selected file in the Menu class */
                     playControls();
-                    System.out.println(g.toString());
+                    System.out.println(f.toString());
 
                 }
 
@@ -170,7 +196,7 @@ public class MusicPlayer extends JFrame implements ActionListener, Serializable 
                 //If song isn't playing AND isn't paused, start playback
                 if (!audioControls.isPlaying() && !audioControls.isPaused()) {
                     audioControls.play();
-                    currentlyPlayingLabel.setText(Menu.getSelectedFile().getSongInfo().toString());
+                    currentlyPlayingLabel.setText(Menu.getSelectedFile().toString());
                     playButton.setText("Pause"); //song is playing so change the button to pause
                     menu.cPlay.setText("Pause");
                 }

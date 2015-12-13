@@ -27,7 +27,10 @@
             <children>
               <component id="6d3e7" class="javax.swing.JTree" binding="tree1" default-binding="true">
                 <constraints/>
-                <properties/>
+                <properties>
+                  <enabled value="false"/>
+                  <visible value="false"/>
+                </properties>
               </component>
             </children>
           </grid>
@@ -105,6 +108,7 @@
                     <constraints/>
                     <properties>
                       <hideActionText value="true"/>
+                      <selected value="false"/>
                       <text value="Play"/>
                     </properties>
                   </component>

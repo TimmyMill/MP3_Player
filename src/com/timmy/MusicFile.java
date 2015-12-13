@@ -67,8 +67,6 @@ public class MusicFile implements Serializable {
 
     @Override
     public String toString() {
-        return  "Artist '" + artist + '\'' +
-                ", Title '" + title + '\'' +
-                ", Album '" + album + '\'';
+        return title + " by " + artist;
     }
 }

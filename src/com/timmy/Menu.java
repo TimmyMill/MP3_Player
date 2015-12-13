@@ -58,9 +58,11 @@ public class Menu extends JMenuBar implements ActionListener, KeyListener {
         fileMenu.add(fOpen);
 
         //add
-        fAdd = new JMenuItem("Add Music");
+        fAdd = new JMenuItem("Add to Library");
         fAdd.setMnemonic(KeyEvent.VK_A);
         fAdd.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_O, (InputEvent.CTRL_MASK + InputEvent.SHIFT_MASK) ));
+        //input events are added together to require both keys to be pressed to enable shortcut, so ctrl + shift + "o"
+
         fAdd.addActionListener(this);
         fAdd.setActionCommand("Add");
         fileMenu.add(fAdd);
@@ -120,11 +122,18 @@ public class Menu extends JMenuBar implements ActionListener, KeyListener {
 
     public static void selectSong(JMenuItem menuItem) {
         JFileChooser fc = new JFileChooser();
-        fc.setFileSelectionMode(JFileChooser.FILES_ONLY);
-        fc.setCurrentDirectory(new File(System.getProperty("user.home")));
+        fc.setFileSelectionMode(JFileChooser.FILES_ONLY); //set File Chooser to only select files
+        //TODO create a statement or method that allows a user to select a folder and add all audio files contained within it
 
+        fc.setCurrentDirectory(new File(System.getProperty("user.home"))); //sets File Chooser's starting directory to the user's home directory
+
+        /* Both if statements open a file chooser dialog box to allow user to select a file from their computer
+         * A new audio file is created using this file
+        */
+
+        //If open file was selected, do this
         if (open) {
-            fc.setDialogTitle("Open File");
+            fc.setDialogTitle("Open File"); //since open was selected, title says open
             fc.showOpenDialog(menuItem);
 
             if (fc.getSelectedFile() != null) {
@@ -134,15 +143,16 @@ public class Menu extends JMenuBar implements ActionListener, KeyListener {
             }
         }
 
+        //If add file was selected, do this
         if (add) {
-            fc.setDialogTitle("Add File");
+            fc.setDialogTitle("Add File"); //since add was selected, title says add
             fc.showOpenDialog(menuItem);
 
             if (fc.getSelectedFile() != null) {
                 File f = fc.getSelectedFile();
                 String path = f.getPath();
                 selectedFile = new MusicFile(path, f);
-                Database.addToSongs();
+                Database.addToSongs(); //calls method from Database to add file to the table in our database
                 Database.addSongPath();
             }
         }

@@ -4,7 +4,7 @@ import javazoom.jlgui.basicplayer.*;
 
 import java.util.Map;
 
-public class PlaybackControls extends BasicPlayer implements BasicPlayerListener{
+public class PlaybackControls extends BasicPlayer implements BasicPlayerListener {
 
     private boolean isPlaying = false;
     private boolean isPaused = false;
