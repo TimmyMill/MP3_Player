@@ -10,7 +10,7 @@ import java.io.File;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-public class MusicPlayer extends JFrame implements ActionListener, Serializable {
+public class MusicPlayer extends JFrame implements Serializable {
 
     private JPanel playerPanel;
     private JButton playButton;
@@ -39,9 +39,10 @@ public class MusicPlayer extends JFrame implements ActionListener, Serializable 
         String[] columnHeadings = {"Title", "Artist", "Album", "Path"};
 
         //Run login method before database is initialized to ensure database connection is made
-//        loginDB();
-
+        loginDB();
         library = new Database(); //initialize database object
+        library.loadDriver();
+
         library.initDB();         //run method to connect and create the database if it doesn't already exist
 
         //JFrame Settings
@@ -151,6 +152,19 @@ public class MusicPlayer extends JFrame implements ActionListener, Serializable 
             }
         });
 
+        menu.fAdd.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                e.getWhen();
+                System.out.println("Add row called");
+                if (Menu.isFileAdded()) {
+//            Database.addToSongs();
+                    addRowToTable();
+                    Menu.setFileAdded(false);
+                }
+            }
+        });
+
         table.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -180,6 +194,7 @@ public class MusicPlayer extends JFrame implements ActionListener, Serializable 
             @Override
             public void componentAdded(ContainerEvent e) {
                 super.componentAdded(e);
+
             }
 
             @Override
@@ -222,7 +237,7 @@ public class MusicPlayer extends JFrame implements ActionListener, Serializable 
         }
     }
 
-    private void addRowToTable() {
+    public void addRowToTable() {
 //            tableModel.addRow(file.getSongInfo().toArray());
 //            ArrayList<String> lst = file.getSongInfo();
 //            lst.add(file.getPath());
@@ -245,13 +260,6 @@ public class MusicPlayer extends JFrame implements ActionListener, Serializable 
 //        Database.loadDriver();
     }
 
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        if (menu.fAdd.isSelected() && Menu.isFileAdded()) {
-//            Database.addToSongs();
-            addRowToTable();
-        }
-    }
 }
 
 

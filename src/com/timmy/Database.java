@@ -8,10 +8,10 @@ public class Database {
 
     private static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
     private static final String DB_CONNECTION_URL = "jdbc:mysql://localhost:3306/";
-//    private static final String USER = Pwd.getUser();
-//    private static final String PASSWORD = Pwd.getPassword();
-    private static final String USER = "root";
-    private static final String PASSWORD = "linuxMy$ql";
+    private static final String USER = Pwd.getUser();
+    private static final String PASSWORD = Pwd.getPassword();
+//    private static final String USER = "root";
+//    private static final String PASSWORD = "linuxMy$ql";
     private static Connection conn = null;
     private static PreparedStatement psStat = null;
     private static Statement statement = null;
@@ -22,7 +22,7 @@ public class Database {
         libraryList = new ArrayList<>();
     }
 
-    public static void loadDriver() {
+    public void loadDriver() {
 
         try {
             Class.forName(JDBC_DRIVER);
@@ -39,7 +39,7 @@ public class Database {
     public void initDB() {
 
         try {
-            loadDriver();
+//            loadDriver();
 //            MusicPlayer.loginDB();
             conn = DriverManager.getConnection(DB_CONNECTION_URL, USER, PASSWORD);
 
