@@ -70,6 +70,8 @@ public class Menu extends JMenuBar implements ActionListener, KeyListener {
         fileMenu.add(fAdd);
         fileMenu.addSeparator();
 
+        //TODO add a way to remove songs from library
+
         //close
         fClose = new JMenuItem("Close Player");
         fClose.setMnemonic(KeyEvent.VK_E);
@@ -137,16 +139,16 @@ public class Menu extends JMenuBar implements ActionListener, KeyListener {
                 break;
 
             }
-            case "Add": {
-                System.out.println("Add");
-                setAdd(true);
-                FileChooser fc = new FileChooser();
-                fc.addActionListener(this);
-                fc.selectSong(fAdd);
-                setAdd(false);
-                break;
+//            case "Add": {
+//                System.out.println("Add");
+//                setAdd(true);
+//                FileChooser fc = new FileChooser();
+//                fc.addActionListener(this);
+//                fc.selectSong(fAdd);
+//                setAdd(false);
+//                break;
 
-            }
+//            }
             case "Play": {
                 break;
             }
@@ -156,10 +158,10 @@ public class Menu extends JMenuBar implements ActionListener, KeyListener {
 
                 break;
             }
-            case "ApproveSelection": {
-                System.out.println(e.getActionCommand());
-                break;
-            }
+//            case "ApproveSelection": {
+//                System.out.println(e.getActionCommand());
+//                break;
+//            }
             default: {
                 System.out.println("Blah");
             }

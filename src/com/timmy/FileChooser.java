@@ -46,6 +46,7 @@ public class FileChooser extends JFileChooser {
 
         //If add file was selected, do this
         if (Menu.isAdd()) {
+            Menu.setAdd(false);
             setDialogTitle("Add File"); //since add was selected, title says add
             setApproveButtonText("Import");
             setApproveButtonMnemonic(KeyEvent.VK_I);
@@ -67,6 +68,7 @@ public class FileChooser extends JFileChooser {
                 Menu.setFileAdded(true); //set boolean true because file is being added
                 Database.addToSongs();   //calls method from Database to add file to the table in our database
             }
+//            Menu.setAdd(false);
         }
 
     }

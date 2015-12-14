@@ -13,16 +13,16 @@ import java.util.ArrayList;
 public class MusicPlayer extends JFrame implements Serializable {
 
     private JPanel playerPanel;
-    private JButton playButton;
     private JPanel northPanel;
-    private JTree tree1;
+    private JPanel eastPanel;
     private JPanel westPanel;
     private JPanel centerPanel;
-    private JButton nextButton;
-    private JButton previousButton;
+    private JTree tree1;
     private JLabel currentlyPlayingLabel;
-    private JPanel eastPanel;
+    private JButton playButton;
     private JButton stopButton;
+    private JButton previousButton;
+    private JButton nextButton;
     private JTable table;
     private DefaultTableModel tableModel;
     private ListSelectionModel tableListModel;
@@ -140,7 +140,7 @@ public class MusicPlayer extends JFrame implements Serializable {
         previousButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                //TODO implement skipping to previous song
             }
         });
 
@@ -148,16 +148,21 @@ public class MusicPlayer extends JFrame implements Serializable {
         nextButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                //TODO implement skipping to next song
             }
         });
 
-        menu.fAdd.addActionListener(new ActionListener() {
+        menu.fAdd.addActionListener(new ActionListener() { // FIXME: 12/13/15
             @Override
             public void actionPerformed(ActionEvent e) {
-                e.getWhen();
-                System.out.println("Add row called");
+                System.out.println("Add");
+                Menu.setAdd(true);
+                FileChooser fc = new FileChooser();
+//                fc.addActionListener(this);
+                fc.selectSong(menu.fAdd);
+//                Menu.setAdd(false);
                 if (Menu.isFileAdded()) {
+                    System.out.println("Add row called");
 //            Database.addToSongs();
                     addRowToTable();
                     Menu.setFileAdded(false);
@@ -169,6 +174,7 @@ public class MusicPlayer extends JFrame implements Serializable {
             @Override
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
+
                 //If mouse is double clicked, get the row that's selected to play song
                 if (e.getClickCount() == 2) {
 //                    System.out.println("Double Click");
@@ -187,6 +193,9 @@ public class MusicPlayer extends JFrame implements Serializable {
             @Override
             public void mousePressed(MouseEvent e) {
                 super.mousePressed(e);
+                if (e.getClickCount() == 2) {
+                    System.out.println("Double tap");
+                }
             }
         });
 
