@@ -75,14 +75,16 @@ public class MusicPlayer extends JFrame implements ActionListener, Serializable 
         tableModel.setColumnIdentifiers(columnHeadings); //use a string array to give each column a name
 
         //Create rows
-        for (MusicFile file : Database.getLibraryList()) { //iterate the library list created in Database
+        if (Database.getLibraryList() != null) {
+            for (MusicFile file : Database.getLibraryList()) { //iterate the library list created in Database
 //            tableModel.addRow(file.getSongInfo().toArray());
-            ArrayList<String> lst = file.getSongInfo();
-            lst.add(file.getPath());
-            Object[] str = lst.toArray();
-            tableModel.addRow(str);
+                ArrayList<String> lst = file.getSongInfo();
+                lst.add(file.getPath());
+                Object[] str = lst.toArray();
+                tableModel.addRow(str);
             /* for each audio file, use the getSongInfo method to extract the metadata and then add it to an array */
             /* use the array to add a new row to the table */
+            }
         }
 
         //Table List Model
@@ -220,6 +222,22 @@ public class MusicPlayer extends JFrame implements ActionListener, Serializable 
         }
     }
 
+    private void addRowToTable() {
+//            tableModel.addRow(file.getSongInfo().toArray());
+//            ArrayList<String> lst = file.getSongInfo();
+//            lst.add(file.getPath());
+        Database.getLibraryList();
+//        ArrayList<String> lst = file.getSongInfo();
+        ArrayList<String> lst = Menu.getSelectedFile().getSongInfo();
+        lst.add(Menu.getSelectedFile().getPath());
+        Object[] str = lst.toArray();
+        tableModel.addRow(str);
+        /* for each audio file, use the getSongInfo method to extract the metadata and then add it to an array */
+        /* use the array to add a new row to the table */
+
+
+    }
+
     public static void loginDB() {
         Pwd dialog = new Pwd();
         dialog.pack();
@@ -229,7 +247,10 @@ public class MusicPlayer extends JFrame implements ActionListener, Serializable 
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        menu.fAdd.isSelected();
+        if (menu.fAdd.isSelected() && Menu.isFileAdded()) {
+//            Database.addToSongs();
+            addRowToTable();
+        }
     }
 }
 

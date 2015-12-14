@@ -19,7 +19,7 @@ public class Database {
     private static ArrayList<MusicFile> libraryList;
 
     public Database() {
-
+        libraryList = new ArrayList<>();
     }
 
     public static void loadDriver() {
@@ -58,11 +58,6 @@ public class Database {
             statement.executeUpdate(createTableSQL);
             System.out.println("Created songs table");
 
-            //Create file table in the database if it doesn't exist
-            createTableSQL = "CREATE TABLE IF NOT EXISTS file (path VARCHAR(60))";
-            statement.executeUpdate(createTableSQL);
-            System.out.println("Created file table");
-
             //Get all of the songs from the file table
             loadMusicLibrary();
         }
@@ -81,18 +76,22 @@ public class Database {
 
     }
 
+    //Method used to add a song to the database
     public static void addToSongs() {
-        if (Menu.isAdd()) {
-            MusicFile mf = Menu.getSelectedFile();
+//        libraryList = new ArrayList<>();
+
+        if (Menu.isFileAdded()) {
+            MusicFile file = Menu.getSelectedFile();
             try {
                 String psStatInsert = "INSERT INTO songs VALUES (?,?,?,?)";
                 psStat = conn.prepareStatement(psStatInsert);
-                psStat.setString(1, mf.getTitle() );
-                psStat.setString(2, mf.getArtist() );
-                psStat.setString(3, mf.getAlbum() );
-                psStat.setString(4, mf.getPath() );
+                psStat.setString(1, file.getTitle() );
+                psStat.setString(2, file.getArtist() );
+                psStat.setString(3, file.getAlbum() );
+                psStat.setString(4, file.getPath() );
                 psStat.executeUpdate();
-                System.out.println("Added song: " + mf.getTitle());
+                System.out.println("Added song: " + file.getTitle());
+                libraryList.add(file);
 
             } catch (SQLException e) {
                 e.printStackTrace();
@@ -100,45 +99,8 @@ public class Database {
         }
     }
 
-    public static void addSongPath() {
-        if (Menu.isAdd()) {
-            MusicFile mf = Menu.getSelectedFile();
-//            String path = mf.getPath();
-
-            try {
-                String psStatInsert = "INSERT INTO file VALUES (?)";
-                psStat = conn.prepareStatement(psStatInsert);
-                psStat.setString(1, mf.getPath());
-                psStat.executeUpdate();
-                System.out.println("Added: " + mf.getTitle());
-//                System.out.println("Path: " + mf.getPath());
-            }
-
-            catch (SQLException e) {
-                e.printStackTrace();
-            }
-        }
-    }
-
-//    public void loadMusicLibrary() {
-//
-//        try {
-//
-//            String fetchAllSongs = "SELECT * FROM file";
-//            rs = statement.executeQuery(fetchAllSongs);
-//            while (rs.next()) {
-//                String path = rs.getString("Path");
-////                System.out.println("Path: " + path);
-//            }
-//
-//        }
-//        catch (SQLException e) {
-//            e.printStackTrace();
-//        }
-//    }
-
+    //Method used to load all of the songs from the songs table
     public void loadMusicLibrary() {
-        libraryList = new ArrayList<>();
 
         try {
 
@@ -146,9 +108,9 @@ public class Database {
             rs = statement.executeQuery(fetchAllSongs);
             while (rs.next()) {
                 String path = rs.getString("path");
-                File file = new File(path);
-                MusicFile f = new MusicFile(path, file);
-                libraryList.add(f);
+                File f = new File(path);
+                MusicFile file = new MusicFile(path, f);
+                libraryList.add(file);
             }
 
         }
@@ -157,24 +119,24 @@ public class Database {
         }
     }
 
-    public void getSong() {
-
-        try {
-
-            String fetchAllSongs = "SELECT * FROM songs";
-            rs = statement.executeQuery(fetchAllSongs);
-            while (rs.next()) {
-                String title = rs.getString("title");
-                String artist = rs.getString("artist");
-                String album = rs.getString("album");
-                System.out.println("" + title + "" + artist + "" + album);
-            }
-
-        }
-        catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
+//    public void getSong() {
+//
+//        try {
+//
+//            String fetchAllSongs = "SELECT * FROM songs";
+//            rs = statement.executeQuery(fetchAllSongs);
+//            while (rs.next()) {
+//                String title = rs.getString("title");
+//                String artist = rs.getString("artist");
+//                String album = rs.getString("album");
+//                System.out.println("" + title + "" + artist + "" + album);
+//            }
+//
+//        }
+//        catch (SQLException e) {
+//            e.printStackTrace();
+//        }
+//    }
 
     //Get Library
     public static ArrayList<MusicFile> getLibraryList() {return libraryList;}
