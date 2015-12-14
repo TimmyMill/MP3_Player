@@ -81,7 +81,7 @@ public class Database {
 //        libraryList = new ArrayList<>();
 
         if (Menu.isFileAdded()) {
-            MusicFile file = Menu.getSelectedFile();
+            MusicFile file = Menu.getFileSelection();
             try {
                 String psStatInsert = "INSERT INTO songs VALUES (?,?,?,?)";
                 psStat = conn.prepareStatement(psStatInsert);

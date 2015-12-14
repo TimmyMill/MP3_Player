@@ -160,7 +160,7 @@ public class MusicPlayer extends JFrame implements ActionListener, Serializable 
 //                    System.out.println("Double Click");
                     Object f = tableModel.getValueAt(table.getSelectedRow(), 3);
                     //create a new object to hold information about the selected row and that song's filepath
-                    Menu.setSelectedFile(new MusicFile((String) f, new File(f.toString())));
+                    Menu.setFileSelection(new MusicFile((String) f, new File(f.toString())));
                     /* create a new music file using our throwaway object so we can load the file to play
                      * set the selected file in the Menu class */
                     playControls();
@@ -193,12 +193,12 @@ public class MusicPlayer extends JFrame implements ActionListener, Serializable 
     **/
     public void playControls() {
         //If song has been selected, do this
-        if (Menu.getSelectedFile() != null) {
+        if (Menu.getFileSelection() != null) {
             try {
                 //If song isn't playing AND isn't paused, start playback
                 if (!audioControls.isPlaying() && !audioControls.isPaused()) {
                     audioControls.play();
-                    currentlyPlayingLabel.setText(Menu.getSelectedFile().toString());
+                    currentlyPlayingLabel.setText(Menu.getFileSelection().toString());
                     playButton.setText("Pause"); //song is playing so change the button to pause
                     menu.cPlay.setText("Pause");
                 }
@@ -228,8 +228,8 @@ public class MusicPlayer extends JFrame implements ActionListener, Serializable 
 //            lst.add(file.getPath());
         Database.getLibraryList();
 //        ArrayList<String> lst = file.getSongInfo();
-        ArrayList<String> lst = Menu.getSelectedFile().getSongInfo();
-        lst.add(Menu.getSelectedFile().getPath());
+        ArrayList<String> lst = Menu.getFileSelection().getSongInfo();
+        lst.add(Menu.getFileSelection().getPath());
         Object[] str = lst.toArray();
         tableModel.addRow(str);
         /* for each audio file, use the getSongInfo method to extract the metadata and then add it to an array */

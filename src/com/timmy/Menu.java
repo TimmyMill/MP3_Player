@@ -1,13 +1,10 @@
 package com.timmy;
 
-import javax.swing.JFileChooser;
 import javax.swing.JMenuItem;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.KeyStroke;
-import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.event.*;
-import java.io.File;
 
 public class Menu extends JMenuBar implements ActionListener, KeyListener {
 
@@ -19,16 +16,13 @@ public class Menu extends JMenuBar implements ActionListener, KeyListener {
     protected JMenuItem hAbout;
     /* create menu items for the help menu */
 
-    private PlaybackControls audioControls;
     protected JMenu fileMenu, controlsMenu, helpMenu;
-    private static MusicFile selectedFile;
+    protected static MusicFile fileSelection;
     private static boolean fileAdded = false;
     private static boolean open = false;
     private static boolean add = false;
-    private static JFileChooser fc;
 
-    public Menu(PlaybackControls audioControls) {
-        this.audioControls = audioControls;
+    public Menu() {
 
         /* Create each menu that will be in the menu bar:
         */
@@ -117,22 +111,11 @@ public class Menu extends JMenuBar implements ActionListener, KeyListener {
 
         helpMenu.add(hAbout);
 
-        //File Chooser
-        fc = new JFileChooser();
-//        fc.addActionListener(new ActionListener() {
-//            @Override
-//            public void actionPerformed(ActionEvent e) {
-//                if (e.getActionCommand().equals("ApproveSelection")) {
-//                    System.out.println(e.getActionCommand());
-//                }
-//
-//            }
-//        });
     }
 
     //Getters & Setters
-    public static MusicFile getSelectedFile() {return selectedFile;}
-    public static void setSelectedFile(MusicFile selectedFile) {Menu.selectedFile = selectedFile;}
+    public static MusicFile getFileSelection() {return fileSelection;}
+    public static void setFileSelection(MusicFile fileSelection) {Menu.fileSelection = fileSelection;}
     public static boolean isFileAdded() {return fileAdded;}
     public static void setFileAdded(boolean fileAdded) {Menu.fileAdded = fileAdded;}
     public static boolean isOpen() {return open;}
@@ -146,17 +129,21 @@ public class Menu extends JMenuBar implements ActionListener, KeyListener {
         switch(actionCommand) {
             case "Open": {
                 System.out.println("Open");
-                open = true;
-                selectSong(fOpen);
-                open = false;
+                setOpen(true);
+                FileChooser fc = new FileChooser();
+                fc.addActionListener(this);
+                fc.selectSong(fOpen);
+                setOpen(false);
                 break;
 
             }
             case "Add": {
                 System.out.println("Add");
-                add = true;
-                selectSong(fAdd);
-                add = false;
+                setAdd(true);
+                FileChooser fc = new FileChooser();
+                fc.addActionListener(this);
+                fc.selectSong(fAdd);
+                setAdd(false);
                 break;
 
             }
@@ -167,6 +154,10 @@ public class Menu extends JMenuBar implements ActionListener, KeyListener {
                 System.out.println("Close");
                 System.exit(0);
 
+                break;
+            }
+            case "ApproveSelection": {
+                System.out.println(e.getActionCommand());
                 break;
             }
             default: {
@@ -190,48 +181,4 @@ public class Menu extends JMenuBar implements ActionListener, KeyListener {
 
     }
 
-    //Method to open or add a file
-    public static void selectSong(JMenuItem menuItem) {
-//        JFileChooser fc = new JFileChooser();
-        fc.setFileSelectionMode(JFileChooser.FILES_ONLY); //set File Chooser to only select files
-        //TODO create a statement or method that allows a user to select a folder and add all audio files contained within it
-        fc.setFileFilter(new FileNameExtensionFilter("Mp3", "mp3")); //set File Chooser to only allow mp3 files to be selected
-        //TODO implement addChoosableFileFilter when player is able to play more file types
-        fc.setCurrentDirectory(new File(System.getProperty("user.home"))); //sets File Chooser's starting directory to the user's home directory
-
-        /* Both if statements open a file chooser dialog box to allow user to select a file from their computer
-         * A new audio file is created using this file
-        */
-
-        //If open file was selected, do this
-        if (open) {
-            fc.setDialogTitle("Open File"); //since open was selected, title says open
-            fc.setApproveButtonText("Open");
-            fc.setApproveButtonMnemonic(KeyEvent.VK_O);
-            fc.showOpenDialog(menuItem);
-
-            if (fc.getSelectedFile() != null) {
-                File f = fc.getSelectedFile();
-                String path = f.getPath();
-                selectedFile = new MusicFile(path, f);
-            }
-        }
-
-        //If add file was selected, do this
-        if (add) {
-            fc.setDialogTitle("Add File"); //since add was selected, title says add
-            fc.setApproveButtonText("Import");
-            fc.setApproveButtonMnemonic(KeyEvent.VK_I);
-            fc.showOpenDialog(menuItem);
-
-            if (fc.getSelectedFile() != null) {
-                File f = fc.getSelectedFile();
-                String path = f.getPath();
-                selectedFile = new MusicFile(path, f);
-                Database.addToSongs(); //calls method from Database to add file to the table in our database
-                setFileAdded(true);    //set boolean true because file is being added
-            }
-        }
-
-    }
 }

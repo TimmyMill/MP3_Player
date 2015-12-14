@@ -14,7 +14,7 @@ public class PlaybackControls extends BasicPlayer implements BasicPlayerListener
 
     public void loadSong() {
         try {
-            open(Menu.getSelectedFile().getFile());
+            open(Menu.getFileSelection().getFile());
         } catch (BasicPlayerException e) {
             e.printStackTrace();
         }
