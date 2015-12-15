@@ -27,7 +27,7 @@ public class MusicPlayer extends JFrame implements Serializable {
     private DefaultTableModel tableModel;
     private ListSelectionModel tableListModel;
     private DefaultTableColumnModel columnModel;
-    private TableRowSorter rowSorter;
+    private TableRowSorter<DefaultTableModel> rowSorter;
 
     //Custom Built Objects needed by the Music Player
     protected Menu menu;
@@ -100,10 +100,12 @@ public class MusicPlayer extends JFrame implements Serializable {
         columnModel.setSelectionModel(tableListModel);
 
 
-        rowSorter = new TableRowSorter();
+        rowSorter = new TableRowSorter<>();
+        rowSorter.setModel(tableModel);
 
         table.setModel(tableModel);
         table.setSelectionModel(tableListModel);
+        table.setRowSorter(rowSorter);
 
         table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         table.setRowSelectionAllowed(true);
@@ -183,7 +185,10 @@ public class MusicPlayer extends JFrame implements Serializable {
                 //If mouse is double clicked, get the row that's selected to play song
                 if (e.getClickCount() == 2) {
 //                    System.out.println("Double Click");
-                    Object f = tableModel.getValueAt(table.getSelectedRow(), 3);
+//                    Object f = tableModel.getValueAt(table.getSelectedRow(), 3);
+//                    Object selectedSong = table.getModel().getValueAt(table.convertRowIndexToView(table.getSelectedRow(), 3));
+                    int i = rowSorter.convertRowIndexToModel(table.getSelectedRow());
+                    Object f = tableModel.getValueAt(i, 3);
                     //create a new object to hold information about the selected row and that song's filepath
                     Menu.setFileSelection(new MusicFile((String) f, new File(f.toString())));
                     /* create a new music file using our throwaway object so we can load the file to play
