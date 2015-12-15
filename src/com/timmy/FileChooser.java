@@ -35,12 +35,19 @@ public class FileChooser extends JFileChooser {
 
                 if (Menu.getFileSelection() == null) {
                     Menu.fileSelection = new MusicFile(path, f);
-                    System.out.println("File has been set");
+//                    System.out.println("File has been set");
                 }
 
                 else {
                     Menu.setFileSelection(new MusicFile(path, f));
                 }
+//                System.out.println("Opened " + Menu.getFileSelection().getPath());
+                System.out.println("Title length: " + Menu.getFileSelection().getTitle().length());
+                System.out.println("Artist length: " + Menu.getFileSelection().getArtist().length());
+                System.out.println("Album length: " + Menu.getFileSelection().getAlbum().length());
+//                System.out.println("Path length: " + Menu.getFileSelection().getPath().length());
+                //used to get the length of the Strings stored in the table
+                //this helped to determine how large the varchar value should be
             }
         }
 
@@ -58,7 +65,7 @@ public class FileChooser extends JFileChooser {
 
                 if (Menu.getFileSelection() == null) {
                     Menu.fileSelection = new MusicFile(path, f);
-                    System.out.println("File has been set");
+//                    System.out.println("File has been set");
                 }
 
                 else {

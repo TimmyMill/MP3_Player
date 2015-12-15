@@ -54,7 +54,7 @@ public class Database {
             statement.executeUpdate(useDatabaseSQL);
 
             //Create songs table in the database if it doesn't exist
-            String createTableSQL = "CREATE TABLE IF NOT EXISTS songs (title VARCHAR(30), artist VARCHAR(30), album VARCHAR(30), path VARCHAR(60))";
+            String createTableSQL = "CREATE TABLE IF NOT EXISTS songs (title VARCHAR(100), artist VARCHAR(100), album VARCHAR(100), path VARCHAR(200))";
             statement.executeUpdate(createTableSQL);
             System.out.println("Created songs table");
 

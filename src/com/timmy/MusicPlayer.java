@@ -27,6 +27,7 @@ public class MusicPlayer extends JFrame implements Serializable {
     private DefaultTableModel tableModel;
     private ListSelectionModel tableListModel;
     private DefaultTableColumnModel columnModel;
+    private TableRowSorter rowSorter;
 
     //Custom Built Objects needed by the Music Player
     protected Menu menu;
@@ -48,7 +49,7 @@ public class MusicPlayer extends JFrame implements Serializable {
         //JFrame Settings
         setJMenuBar(menu); //set our custom menu bar to the JFrame
         setContentPane(playerPanel);
-        setTitle("MusicFile");
+        setTitle("AudioPlayer");
         setPreferredSize(new Dimension(600, 600));
         pack();
         setResizable(true);
@@ -75,6 +76,7 @@ public class MusicPlayer extends JFrame implements Serializable {
         //Create columns
         tableModel.setColumnIdentifiers(columnHeadings); //use a string array to give each column a name
 
+
         //Create rows
         if (Database.getLibraryList() != null) {
             for (MusicFile file : Database.getLibraryList()) { //iterate the library list created in Database
@@ -90,12 +92,15 @@ public class MusicPlayer extends JFrame implements Serializable {
 
         //Table List Model
         tableListModel = new DefaultListSelectionModel();
+
 //        tableListModel.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
 
         //Table Column Model
         columnModel = new DefaultTableColumnModel();
         columnModel.setSelectionModel(tableListModel);
 
+
+        rowSorter = new TableRowSorter();
 
         table.setModel(tableModel);
         table.setSelectionModel(tableListModel);
@@ -187,6 +192,7 @@ public class MusicPlayer extends JFrame implements Serializable {
                     System.out.println(f.toString());
 
                 }
+                System.out.println(e.getButton());
 
             }
 
@@ -203,6 +209,7 @@ public class MusicPlayer extends JFrame implements Serializable {
             @Override
             public void componentAdded(ContainerEvent e) {
                 super.componentAdded(e);
+                System.out.println(e.getID());
 
             }
 

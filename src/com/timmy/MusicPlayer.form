@@ -49,11 +49,12 @@
               <component id="8066c" class="javax.swing.JTable" binding="table">
                 <constraints/>
                 <properties>
-                  <autoCreateRowSorter value="true"/>
+                  <autoCreateRowSorter value="false"/>
                   <columnSelectionAllowed value="false"/>
                   <dragEnabled value="true"/>
                   <enabled value="true"/>
-                  <fillsViewportHeight value="true"/>
+                  <fillsViewportHeight value="false"/>
+                  <inheritsPopupMenu value="false"/>
                   <rowSelectionAllowed value="true"/>
                 </properties>
                 <clientProperties>
@@ -78,9 +79,10 @@
             <children>
               <component id="c7ac3" class="javax.swing.JLabel" binding="currentlyPlayingLabel">
                 <constraints>
-                  <grid row="0" column="0" row-span="1" col-span="3" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+                  <grid row="0" column="0" row-span="1" col-span="3" vsize-policy="2" hsize-policy="2" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
                 </constraints>
                 <properties>
+                  <font name="Ubuntu Mono" size="18"/>
                   <horizontalAlignment value="0"/>
                   <horizontalTextPosition value="0"/>
                   <text value=""/>
