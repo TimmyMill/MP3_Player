@@ -14,7 +14,7 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-public class MusicFile implements Serializable {
+public class AudioFile implements Serializable {
 
     private String artist;
     private String album;
@@ -23,7 +23,7 @@ public class MusicFile implements Serializable {
     private File file;
     private ArrayList<String> songInfo; //string list containing information about an audio file (artist, album, title)
 
-    public MusicFile(String path, File file) {
+    public AudioFile(String path, File file) {
         this.path = path;
         this.file = file;
         songInfo = new ArrayList<>();

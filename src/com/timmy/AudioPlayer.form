@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="com.timmy.MusicPlayer">
+<form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="com.timmy.AudioPlayer">
   <grid id="27dc6" binding="playerPanel" layout-manager="BorderLayout" hgap="0" vgap="0">
     <constraints>
       <xy x="29" y="17" width="879" height="520"/>

@@ -17,7 +17,7 @@ public class Menu extends JMenuBar implements ActionListener, KeyListener {
     /* create menu items for the help menu */
 
     protected JMenu fileMenu, controlsMenu, helpMenu;
-    protected static MusicFile fileSelection;
+    protected static AudioFile fileSelection;
     private static boolean fileAdded = false;
     private static boolean open = false;
     private static boolean add = false;
@@ -116,8 +116,8 @@ public class Menu extends JMenuBar implements ActionListener, KeyListener {
     }
 
     //Getters & Setters
-    public static MusicFile getFileSelection() {return fileSelection;}
-    public static void setFileSelection(MusicFile fileSelection) {Menu.fileSelection = fileSelection;}
+    public static AudioFile getFileSelection() {return fileSelection;}
+    public static void setFileSelection(AudioFile fileSelection) {Menu.fileSelection = fileSelection;}
     public static boolean isFileAdded() {return fileAdded;}
     public static void setFileAdded(boolean fileAdded) {Menu.fileAdded = fileAdded;}
     public static boolean isOpen() {return open;}

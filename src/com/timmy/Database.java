@@ -1,4 +1,9 @@
+/**
+ *
+ */
+
 package com.timmy;
+
 
 import java.io.File;
 import java.sql.*;
@@ -16,13 +21,13 @@ public class Database {
     private static PreparedStatement psStat = null;
     private static Statement statement = null;
     private static ResultSet rs = null;
-    private static ArrayList<MusicFile> libraryList;
+    private static ArrayList<AudioFile> libraryList;
 
     public Database() {
         libraryList = new ArrayList<>();
     }
 
-    public void loadDriver() {
+    public void loadDriver() { //this method was constructed using code from Clara James
 
         try {
             Class.forName(JDBC_DRIVER);
@@ -40,7 +45,7 @@ public class Database {
 
         try {
 //            loadDriver();
-//            MusicPlayer.loginDB();
+//            AudioPlayer.loginDB();
             conn = DriverManager.getConnection(DB_CONNECTION_URL, USER, PASSWORD);
 
             //Create the database if it doesn't exist
@@ -68,7 +73,7 @@ public class Database {
 //            if (e.getErrorCode() == 1045) {
 //                Pwd.setUser("");
 //                Pwd.setPassword("");
-//                MusicPlayer.loginDB();
+//                AudioPlayer.loginDB();
 //                initDB();
 //            }
 
@@ -81,7 +86,7 @@ public class Database {
 //        libraryList = new ArrayList<>();
 
         if (Menu.isFileAdded()) {
-            MusicFile file = Menu.getFileSelection();
+            AudioFile file = Menu.getFileSelection();
             try {
                 String psStatInsert = "INSERT INTO songs VALUES (?,?,?,?)";
                 psStat = conn.prepareStatement(psStatInsert);
@@ -109,7 +114,7 @@ public class Database {
             while (rs.next()) {
                 String path = rs.getString("path");
                 File f = new File(path);
-                MusicFile file = new MusicFile(path, f);
+                AudioFile file = new AudioFile(path, f);
                 libraryList.add(file);
             }
 
@@ -139,5 +144,5 @@ public class Database {
 //    }
 
     //Get Library
-    public static ArrayList<MusicFile> getLibraryList() {return libraryList;}
+    public static ArrayList<AudioFile> getLibraryList() {return libraryList;}
 }

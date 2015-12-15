@@ -1,7 +1,10 @@
 package com.timmy;
 
-import javazoom.jlgui.basicplayer.BasicPlayerException;
+/**
+ *
+ */
 
+import javazoom.jlgui.basicplayer.BasicPlayerException;
 import javax.swing.*;
 import javax.swing.table.*;
 import java.awt.*;
@@ -10,7 +13,7 @@ import java.io.File;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-public class MusicPlayer extends JFrame implements Serializable {
+public class AudioPlayer extends JFrame implements Serializable {
 
     private JPanel playerPanel;
     private JPanel northPanel;
@@ -31,10 +34,10 @@ public class MusicPlayer extends JFrame implements Serializable {
 
     //Custom Built Objects needed by the Music Player
     protected Menu menu;
-    protected PlaybackControls audioControls;
+    protected AudioControls audioControls;
     protected Database library;
 
-    public MusicPlayer(final Menu menu, final PlaybackControls audioControls) {
+    public AudioPlayer(final Menu menu, final AudioControls audioControls) {
         this.menu = menu;
         this.audioControls = audioControls;
         String[] columnHeadings = {"Title", "Artist", "Album", "Path"};
@@ -79,7 +82,7 @@ public class MusicPlayer extends JFrame implements Serializable {
 
         //Create rows
         if (Database.getLibraryList() != null) {
-            for (MusicFile file : Database.getLibraryList()) { //iterate the library list created in Database
+            for (AudioFile file : Database.getLibraryList()) { //iterate the library list created in Database
 //            tableModel.addRow(file.getSongInfo().toArray());
                 ArrayList<String> lst = file.getSongInfo();
                 lst.add(file.getPath());
@@ -190,7 +193,7 @@ public class MusicPlayer extends JFrame implements Serializable {
                     int i = rowSorter.convertRowIndexToModel(table.getSelectedRow());
                     Object f = tableModel.getValueAt(i, 3);
                     //create a new object to hold information about the selected row and that song's filepath
-                    Menu.setFileSelection(new MusicFile((String) f, new File(f.toString())));
+                    Menu.setFileSelection(new AudioFile((String) f, new File(f.toString())));
                     /* create a new music file using our throwaway object so we can load the file to play
                      * set the selected file in the Menu class */
                     playControls();

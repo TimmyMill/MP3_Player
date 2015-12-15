@@ -34,12 +34,12 @@ public class FileChooser extends JFileChooser {
                 String path = f.getPath();
 
                 if (Menu.getFileSelection() == null) {
-                    Menu.fileSelection = new MusicFile(path, f);
+                    Menu.fileSelection = new AudioFile(path, f);
 //                    System.out.println("File has been set");
                 }
 
                 else {
-                    Menu.setFileSelection(new MusicFile(path, f));
+                    Menu.setFileSelection(new AudioFile(path, f));
                 }
 //                System.out.println("Opened " + Menu.getFileSelection().getPath());
                 System.out.println("Title length: " + Menu.getFileSelection().getTitle().length());
@@ -64,12 +64,12 @@ public class FileChooser extends JFileChooser {
                 String path = f.getPath();
 
                 if (Menu.getFileSelection() == null) {
-                    Menu.fileSelection = new MusicFile(path, f);
+                    Menu.fileSelection = new AudioFile(path, f);
 //                    System.out.println("File has been set");
                 }
 
                 else {
-                    Menu.setFileSelection(new MusicFile(path, f));
+                    Menu.setFileSelection(new AudioFile(path, f));
                 }
 
                 Menu.setFileAdded(true); //set boolean true because file is being added
