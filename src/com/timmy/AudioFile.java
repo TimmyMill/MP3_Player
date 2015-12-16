@@ -31,6 +31,10 @@ public class AudioFile implements Serializable {
     }
 
     /* Method to parse metadata and retrieve useful information from an audio file
+    * used this tutorial to help understand how to get metadata
+    *   - https://www.youtube.com/watch?v=OrwO_Q4QJNc
+    *
+    * code is modified to function the way I want it to in my program
     */
     private void getSongData() {
         try (InputStream input = new FileInputStream(file))
